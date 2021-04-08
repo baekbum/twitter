@@ -1,5 +1,7 @@
-import { dbService } from 'Database';
+import { dbService, storageService } from 'Database';
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Tweet = ({tweetObj, isOwner}) => {
     const [editing, setEditing] = useState(false);
@@ -9,6 +11,7 @@ const Tweet = ({tweetObj, isOwner}) => {
         
         if (check) {
             await dbService.doc(`tweets/${tweetObj.id}`).delete();
+            await storageService.refFromURL(tweetObj.fileUrl).delete();
         }
     };
     const toggleEditting = () => {
@@ -26,23 +29,28 @@ const Tweet = ({tweetObj, isOwner}) => {
         setEditing(false);
     };
     return (
-        <div>
+        <div className="tweet">
             { editing ? (
                 <>
-                    <form onSubmit={onSubmit}>
-                        <input type='text' value={editTweet} onChange={onChange} required/>
-                        <input type='submit' value='수정' />
+                    <form onSubmit={onSubmit} className="container tweetEdit">
+                        <input type='text' value={editTweet} onChange={onChange} className="formInput" autoFocus required/>
+                        <input type='submit' value='수정' className="formBtn"/>
                     </form>
-                    <button onClick={toggleEditting}>취소</button>
+                    <button onClick={toggleEditting} className="formBtn cancelBtn">취소</button>
                 </>
             ) : (
                     <>
                         <h4>{tweetObj.content}</h4>
-                        { isOwner ?  
-                            <>
-                                <button onClick={toggleEditting}>수정</button>
-                                <button onClick={onDeleteClick}>삭제</button>
-                            </>  
+                        { tweetObj.fileUrl ? <img src={tweetObj.fileUrl} alt='이미지' /> : ''}
+                        { isOwner ?
+                            <div className="tweet__actions">
+                                <span onClick={toggleEditting}>
+                                    <FontAwesomeIcon icon={faPencilAlt} />
+                                </span>
+                                <span onClick={onDeleteClick}>
+                                    <FontAwesomeIcon icon={faTrash} />
+                                </span>                                
+                            </div> 
                         : ''}
                     </>
             )}
