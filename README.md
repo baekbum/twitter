@@ -1,4 +1,4 @@
-# React + Firebase sns 클론 코딩.
+# React + Firebase를 사용한 sns 개발.
 # 0406 - 사용자 가입 완료.
 # 0407 - 트윗 CRUD 기능 완료.
 # 0408 - 사진 첨부 및 프로필 업데이트 기능
