@@ -1,0 +1,27 @@
+.main-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    background-color: #e1e8ed;
+}
+
+.main-container .tweet-list {
+    width: 25vw;
+    padding: 0.5em;
+}
+
+.main-container .tweet {
+    width: 25vw;
+    padding: 0.5em;
+}
+
+.main-container .message-list {
+    width: 25vw;
+    padding: 0.5em;
+}
+
+.main-container .message {
+    width: 25vw;
+    padding: 0.5em;
+}
