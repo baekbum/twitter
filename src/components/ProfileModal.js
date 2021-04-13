@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Button, Form, Image, Modal } from 'react-bootstrap';
 import { v4 as uuid } from 'uuid';
-import { storageService } from 'Database';
+import { authService, storageService } from 'Database';
+import { connect } from 'react-redux';
+import { fnUser } from 'store/store';
 
-const ProfileModal = ({userObj, refreshUser}) => {
+const ProfileModal = ({userObj, dispatch}) => {
     const [show, setShow] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const [name, setName] = useState('');
@@ -54,7 +56,8 @@ const ProfileModal = ({userObj, refreshUser}) => {
             photoURL : fileUrl
         });
 
-        refreshUser();
+        const curUser = authService.currentUser;
+        dispatch(fnUser.initUser(curUser));
     };
     const onClearImage = async () => {
         setImageName('');
@@ -64,7 +67,8 @@ const ProfileModal = ({userObj, refreshUser}) => {
             photoURL : null
         });
 
-        refreshUser();
+        const curUser = authService.currentUser;
+        dispatch(fnUser.initUser(curUser));
     };
     const onToggleEdit = () => {
         setEditMode((prev) => !prev);
@@ -123,4 +127,12 @@ const ProfileModal = ({userObj, refreshUser}) => {
     );
 }
 
-export default ProfileModal;
+function mapStateToProps(state) {
+    return { userObj : state };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {dispatch};
+  }
+
+export default connect(mapStateToProps, mapDispatchToProps) (ProfileModal);

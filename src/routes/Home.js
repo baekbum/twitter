@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faPen, faHome } from "@fortawesome/free-solid-svg-icons";
 import '../css/Home/Home.css';
+import { connect } from 'react-redux';
 
 const Home = ({userObj}) => {
     const [tweets, setTweets] = useState([]);
@@ -46,7 +47,7 @@ const Home = ({userObj}) => {
                             <span style={{color: 'white', marginLeft: '0.5vw'}}>Tweet</span>
                         </div>
                     </div>
-                    <Tweets userObj={userObj} />
+                    <Tweets />
                 </div>
             ) : null }            
             <div className='message-list' style={{display: 'none'}}>
@@ -55,12 +56,12 @@ const Home = ({userObj}) => {
             <div className='message' style={{display: 'none'}}>
                 DM write
             </div>
-            {/* <TweetForm userObj={userObj} />
-            <div style={{ marginTop: 30 }}>
-                {tweets.map((t) => <Tweet key={t.id} tweetObj={t} isOwner={t.userId === userObj.uid ? true : false} />)}
-            </div> */}
         </div>
     )
 }
 
-export default Home;
+function mapStateToProps(state) {
+    return { userObj : state };
+}
+
+export default connect(mapStateToProps, null) (Home);

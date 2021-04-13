@@ -1,6 +1,7 @@
 import { dbService, storageService } from 'Database';
 import React, { useState } from 'react';
 import { Form, Button, Image } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 
 const Tweets = ({userObj}) => {
@@ -71,4 +72,8 @@ const Tweets = ({userObj}) => {
     );
 }
 
-export default Tweets;
+function mapStateToProps(state) {
+    return { userObj : state };
+}
+
+export default connect(mapStateToProps, null) (Tweets);

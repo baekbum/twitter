@@ -2,11 +2,11 @@ import React from "react";
 import { useHistory } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt, faSearch } from "@fortawesome/free-solid-svg-icons";
 import ProfileModal from "./ProfileModal";
 import { authService } from "Database";
 
-const Header = ({userObj, refreshUser}) => {
+const Header = () => {
     const history = useHistory();
     const onLogOutClick = () => {
         authService.signOut();
@@ -19,7 +19,8 @@ const Header = ({userObj, refreshUser}) => {
                 <FontAwesomeIcon icon={faTwitter} color={'#04AAFF'} size='2x' />
             </div>
             <div style={{marginRight: '1vw'}}>
-                <ProfileModal userObj={userObj} refreshUser={refreshUser} />
+                <FontAwesomeIcon icon={faSearch} color={'#04AAFF'} size='lg' style={{marginRight: '1vw', cursor: 'pointer'}} onClick={onLogOutClick} />
+                <ProfileModal />
                 <FontAwesomeIcon icon={faSignOutAlt} color={'#04AAFF'} size='lg' style={{marginLeft: '1vw', cursor: 'pointer'}} onClick={onLogOutClick} />
             </div>
         </nav>
