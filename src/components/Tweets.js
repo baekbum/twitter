@@ -73,7 +73,7 @@ const Tweets = ({userObj}) => {
 }
 
 function mapStateToProps(state) {
-    return { userObj : state };
+    return { userObj : state.userReducer.userObj };
 }
 
 export default connect(mapStateToProps, null) (Tweets);

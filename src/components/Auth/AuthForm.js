@@ -21,10 +21,11 @@ const AuthForm = () => {
         }
     };
     const onSignIn = async () => {
-        let data;        
+        let data;
+        
         try {
             data = await authService.signInWithEmailAndPassword(email, password);
-            
+
             console.log(data);
         } catch (error) {
             setErrMessage(error.message);

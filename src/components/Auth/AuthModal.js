@@ -1,6 +1,7 @@
 import { authService } from 'Database';
 import React, { useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
+import { setUserDB } from './UserInfo';
 
 const AuthModal = () => {
     const [show, setShow] = useState(false);
@@ -23,8 +24,8 @@ const AuthModal = () => {
         let data;        
         try {
             data = await authService.createUserWithEmailAndPassword(email, password);
-            
-            alert('가입되었습니다.');
+            setUserDB();
+            alert('가입 되었습니다.');
             console.log(data);
         } catch (error) {
             setErrMessage(error.message);

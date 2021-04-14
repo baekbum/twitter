@@ -4,13 +4,15 @@ import { dbService } from 'Database';
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { faPen, faHome } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faHome, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
+import * as actions from '../action/Action';
 import '../css/Home/Home.css';
 import { connect } from 'react-redux';
 
-const Home = ({userObj}) => {
+const Home = ({userObj, isSearch, searchHide}) => {
     const [tweets, setTweets] = useState([]);
     const [tweetWrite, setTweetWrite] = useState(false);
+
     const onTweetShow = () => {
         setTweetWrite((prev) => !prev);
     };
@@ -56,12 +58,32 @@ const Home = ({userObj}) => {
             <div className='message' style={{display: 'none'}}>
                 DM write
             </div>
+            { isSearch ? (
+                <div className='search'>
+                    <div style={{height: '5vh', backgroundColor: '#1c2938', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                        <div> 
+                            <FontAwesomeIcon icon={faSearch} color={'#04AAFF'} size='lg' style={{marginLeft: '1vw'}} />
+                            <span style={{color: 'white', marginLeft: '0.5vw'}}>Search</span>
+                        </div>
+                        <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' style={{cursor: 'pointer', marginRight: '1vw'}} onClick={searchHide}/>
+                    </div>
+                </div>
+            ) : null }            
         </div>
     )
 }
 
 function mapStateToProps(state) {
-    return { userObj : state };
+    return { 
+        userObj : state.userReducer.userObj,
+        isSearch : state.searchReducer.isSearch
+    };
 }
 
-export default connect(mapStateToProps, null) (Home);
+function mapDispatchToProps(dispatch) {
+    return {
+        searchHide: () => dispatch(actions.searchHide())
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (Home);

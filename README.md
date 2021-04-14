@@ -8,3 +8,4 @@
 # 0412 - 프로필 수정, 트윗 조회, 트윗 작성, 트윗 삭제 완료
 # 0413 - 기존 - 사용자 정보 component 마다 prop으로 전달
 # 0413 - 변경 - 사용자 정보 redux 방식으로 변경
+# 0414 - reducer 분할, search layout 처리, userObj 처리 방법 함수화.

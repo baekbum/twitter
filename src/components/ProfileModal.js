@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Form, Image, Modal } from 'react-bootstrap';
 import { v4 as uuid } from 'uuid';
-import { authService, storageService } from 'Database';
+import { dbService, storageService } from 'Database';
 import { connect } from 'react-redux';
-import { fnUser } from 'store/store';
+import { refreshUserObj } from './Auth/UserInfo';
 
 const ProfileModal = ({userObj, dispatch}) => {
     const [show, setShow] = useState(false);
@@ -50,25 +50,27 @@ const ProfileModal = ({userObj, dispatch}) => {
             fileUrl = await fileInstance.ref.getDownloadURL();
         }
 
-        await userObj.updateProfile({
+        await dbService.doc(`userInfo/${userObj.id}`).update({
             displayName : name,
             phoneNumber : phoneNumber,
             photoURL : fileUrl
         });
+        
+        dispatch(await refreshUserObj(userObj.uid));
 
-        const curUser = authService.currentUser;
-        dispatch(fnUser.initUser(curUser));
+        alert('수정 되었습니다.');
     };
     const onClearImage = async () => {
         setImageName('');
         setImageFile('');
 
-        await userObj.updateProfile({
+        await dbService.doc(`userInfo/${userObj.id}`).update({
             photoURL : null
         });
 
-        const curUser = authService.currentUser;
-        dispatch(fnUser.initUser(curUser));
+        dispatch(await refreshUserObj(userObj.uid));
+
+        alert('수정 되었습니다.');
     };
     const onToggleEdit = () => {
         setEditMode((prev) => !prev);
@@ -128,7 +130,7 @@ const ProfileModal = ({userObj, dispatch}) => {
 }
 
 function mapStateToProps(state) {
-    return { userObj : state };
+    return { userObj : state.userReducer.userObj };
 }
 
 function mapDispatchToProps(dispatch) {

@@ -4,9 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faSignOutAlt, faSearch } from "@fortawesome/free-solid-svg-icons";
 import ProfileModal from "./ProfileModal";
+import * as actions from '../action/Action';
 import { authService } from "Database";
+import { connect } from "react-redux";
 
-const Header = () => {
+const Header = ({ searchShow }) => {
     const history = useHistory();
     const onLogOutClick = () => {
         authService.signOut();
@@ -19,7 +21,7 @@ const Header = () => {
                 <FontAwesomeIcon icon={faTwitter} color={'#04AAFF'} size='2x' />
             </div>
             <div style={{marginRight: '1vw'}}>
-                <FontAwesomeIcon icon={faSearch} color={'#04AAFF'} size='lg' style={{marginRight: '1vw', cursor: 'pointer'}} onClick={onLogOutClick} />
+                <FontAwesomeIcon icon={faSearch} color={'#04AAFF'} size='lg' style={{marginRight: '1vw', cursor: 'pointer'}} onClick={searchShow} />
                 <ProfileModal />
                 <FontAwesomeIcon icon={faSignOutAlt} color={'#04AAFF'} size='lg' style={{marginLeft: '1vw', cursor: 'pointer'}} onClick={onLogOutClick} />
             </div>
@@ -27,4 +29,10 @@ const Header = () => {
     );
 }
 
-export default Header;
+function mapDispatchToProps(dispatch) {
+    return {
+        searchShow: () => dispatch(actions.searchShow())
+    };
+}
+
+export default connect(null, mapDispatchToProps) (Header);

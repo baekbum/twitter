@@ -1,28 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import AppRouter from './Router';
-import {authService} from '../Database';
+import AppRouter from './Router/Router';
+import {authService } from '../Database';
 import { connect } from "react-redux";
-import { fnUser } from 'store/store';
+import { getUserDB, setUserObject } from './Auth/UserInfo';
 
 function App({dispatch}) {
   const [init, setInit] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const setUser = (type, user, userData) => {
-    if (type ==='INIT') {
-      dispatch(fnUser.initUser(null)); 
-    } else if (type === 'ADD') {
-      dispatch(fnUser.initUser(user));  
-    }
-  };
+  
   useEffect(() => {
     authService.onAuthStateChanged(async (user) => {
       if (user) {
-        const userData = user.providerData[0];
-        setUser('ADD',user, userData);
+        dispatch(setUserObject('ADD', await getUserDB(user.uid)));
         setIsLoggedIn(true);        
       } else {
-        setUser('INIT', null, null);
+        dispatch(setUserObject('INIT', null));
         setIsLoggedIn(false);        
       }
       setInit(true);
