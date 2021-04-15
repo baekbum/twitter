@@ -14,7 +14,7 @@ const TweetList = ({tweetObj, isOwner}) => {
     return (
         <Card style={{marginBottom: '1vh'}}>
             <Card.Header>
-                {tweetObj.userName}
+                {tweetObj.userName} ( {tweetObj.tagId} )
             </Card.Header>
             <Card.Body>
                 <Card.Text>

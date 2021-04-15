@@ -43,6 +43,7 @@ const Tweets = ({userObj}) => {
             content : text,
             createDt : Date.now(),
             userId : userObj.uid,
+            tagId : userObj.tagId,
             userName : userObj.displayName,
             fileUrl : fileUrl
         }

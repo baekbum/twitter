@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faSignOutAlt, faSearch } from "@fortawesome/free-solid-svg-icons";
 import ProfileModal from "./ProfileModal";
-import * as actions from '../action/Action';
+import * as actions from '../../action/Action';
 import { authService } from "Database";
 import { connect } from "react-redux";
 

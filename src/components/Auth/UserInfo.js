@@ -11,6 +11,7 @@ export const setUserDB = async () => {
         email : userData.email,
         phoneNumber : userData.phoneNumber,
         photoURL : userData.photoURL||defaultImage,
+        tagId : `@${curUser.uid}`
     };
     
     await dbService.collection('userInfo').add(user);
@@ -50,7 +51,8 @@ const initUserObj = (user) => {
         email : '',
         phoneNumber : '',
         photoURL : '',
-        id : ''
+        id : '',
+        tagId : ''
     };
 
     if (user) {
@@ -62,8 +64,4 @@ const initUserObj = (user) => {
 
 export const refreshUserObj = async (userId) => {
     return setUserObject('ADD', await getUserDB(userId));
-};
-
-export const update = () => {
-
 };

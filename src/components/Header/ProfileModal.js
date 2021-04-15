@@ -3,13 +3,15 @@ import { Button, Form, Image, Modal } from 'react-bootstrap';
 import { v4 as uuid } from 'uuid';
 import { dbService, storageService } from 'Database';
 import { connect } from 'react-redux';
-import { refreshUserObj } from './Auth/UserInfo';
+import { refreshUserObj } from '../Auth/UserInfo';
+import defaultImage from '../../image/default.png';
 
 const ProfileModal = ({userObj, dispatch}) => {
     const [show, setShow] = useState(false);
     const [editMode, setEditMode] = useState(false);
-    const [name, setName] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [tagId, setTagId] = useState(userObj.tagId);
+    const [name, setName] = useState(userObj.displayName);
+    const [phoneNumber, setPhoneNumber] = useState(userObj.phoneNumber);    
     const [imageFile, setImageFile] = useState('');
     const [imageName, setImageName] = useState('');
 
@@ -20,13 +22,18 @@ const ProfileModal = ({userObj, dispatch}) => {
             setName(value);
         } else if (name === 'phoneNumber'){
             setPhoneNumber(value);
-        }
+        } else if (name === 'tagId'){
+            setTagId(value);
+        } 
     };
     const onFileChange = async (event) => {
         const files = event.target.files;
         const file = files[0];
+        const dImage = defaultImage;
         if (file) {
-            await storageService.refFromURL(userObj.photoURL).delete();
+            if (userObj.photoURL !== dImage) {
+                await storageService.refFromURL(userObj.photoURL).delete();
+            }            
 
             const reader = new FileReader();
             reader.onloadend = (finishedEvent) => {
@@ -40,9 +47,9 @@ const ProfileModal = ({userObj, dispatch}) => {
     const onEdit = async (event) => {
         if (name === '') {
             return;
-        }
-
-        let fileUrl = userObj.photoURL;
+        }        
+        
+        let fileUrl = imageFile === '' ? userObj.photoURL : imageFile;
         
         if (imageFile) {
             const fileRef = storageService.ref().child(`${userObj.uid}/${uuid()}`);
@@ -51,6 +58,7 @@ const ProfileModal = ({userObj, dispatch}) => {
         }
 
         await dbService.doc(`userInfo/${userObj.id}`).update({
+            tagId : tagId,
             displayName : name,
             phoneNumber : phoneNumber,
             photoURL : fileUrl
@@ -95,13 +103,19 @@ const ProfileModal = ({userObj, dispatch}) => {
                         <div style={{height: '35vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                             <div style={{height: '20vh', width: '20vh'}}>
                                 <Image src={userObj.photoURL} roundedCircle style={{width: '100%', height: '100%'}}/>
-                            </div>                            
+                            </div>
                             <span style={{fontSize: '2em'}}>{userObj.displayName}</span>
+                            <span style={{fontSize: '1em'}}>{userObj.tagId}</span>
                         </div>
                     </div>
                     { editMode ? (
                         <div style={{ paddingTop: '1vh', borderTop: '0.5vh solid #dee2e6'}}>
                             <Form style={{paddingBottom: '1vh', borderBottom: '0.5vh solid #dee2e6'}}>
+                                <Form.Group controlId="tagId">
+                                    <Form.Label>Edit tagId</Form.Label>
+                                    <Form.Control name="tagId" type="text" placeholder="Enter tagId" onChange={onChange} defaultValue={userObj.tagId} />
+                                    <Form.Text className="text-muted">tagId의 시작은 @로 시작되어야합니다.</Form.Text>
+                                </Form.Group>
                                 <Form.Group controlId="name">
                                     <Form.Label>Edit name</Form.Label>
                                     <Form.Control name="name" type="text" placeholder="Enter name" onChange={onChange} defaultValue={userObj.displayName} />

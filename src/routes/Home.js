@@ -8,6 +8,7 @@ import { faPen, faHome, faSearch, faTimes } from "@fortawesome/free-solid-svg-ic
 import * as actions from '../action/Action';
 import '../css/Home/Home.css';
 import { connect } from 'react-redux';
+import Search from 'components/Search';
 
 const Home = ({userObj, isSearch, searchHide}) => {
     const [tweets, setTweets] = useState([]);
@@ -67,6 +68,9 @@ const Home = ({userObj, isSearch, searchHide}) => {
                         </div>
                         <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' style={{cursor: 'pointer', marginRight: '1vw'}} onClick={searchHide}/>
                     </div>
+                    <div style={{ width: '100%', marginTop: '1vh', display: 'flex', flexDirection: 'column', height: '83vh', overflow: 'scroll', overflowX: 'hidden', overflowY: 'hidden'}}>
+                        <Search />
+                    </div>                    
                 </div>
             ) : null }            
         </div>
