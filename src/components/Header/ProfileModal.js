@@ -3,7 +3,7 @@ import { Button, Form, Image, Modal } from 'react-bootstrap';
 import { v4 as uuid } from 'uuid';
 import { dbService, storageService } from 'Database';
 import { connect } from 'react-redux';
-import { refreshUserObj } from '../Auth/UserInfo';
+import { refreshUserObj } from '../../dbFuncion/UserInfo';
 import defaultImage from '../../image/default.png';
 
 const ProfileModal = ({userObj, dispatch}) => {

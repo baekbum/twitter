@@ -2,13 +2,13 @@ import React from "react";
 import { useHistory } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { faSignOutAlt, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt, faSearch, faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import ProfileModal from "./ProfileModal";
 import * as actions from '../../action/Action';
 import { authService } from "Database";
 import { connect } from "react-redux";
 
-const Header = ({ searchShow }) => {
+const Header = ({ searchShow, followShow }) => {
     const history = useHistory();
     const onLogOutClick = () => {
         authService.signOut();
@@ -22,6 +22,7 @@ const Header = ({ searchShow }) => {
             </div>
             <div style={{marginRight: '1vw'}}>
                 <FontAwesomeIcon icon={faSearch} color={'#04AAFF'} size='lg' style={{marginRight: '1vw', cursor: 'pointer'}} onClick={searchShow} />
+                <FontAwesomeIcon icon={faUserFriends} color={'#04AAFF'} size='lg' style={{marginRight: '1vw', cursor: 'pointer'}} onClick={followShow} />
                 <ProfileModal />
                 <FontAwesomeIcon icon={faSignOutAlt} color={'#04AAFF'} size='lg' style={{marginLeft: '1vw', cursor: 'pointer'}} onClick={onLogOutClick} />
             </div>
@@ -31,7 +32,8 @@ const Header = ({ searchShow }) => {
 
 function mapDispatchToProps(dispatch) {
     return {
-        searchShow: () => dispatch(actions.searchShow())
+        searchShow: () => dispatch(actions.searchShow()),
+        followShow: () => dispatch(actions.followShow())
     };
 }
 

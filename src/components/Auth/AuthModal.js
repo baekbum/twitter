@@ -1,7 +1,7 @@
 import { authService } from 'Database';
 import React, { useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
-import { setUserDB } from './UserInfo';
+import { setUserDB } from '../../dbFuncion/UserInfo';
 
 const AuthModal = () => {
     const [show, setShow] = useState(false);

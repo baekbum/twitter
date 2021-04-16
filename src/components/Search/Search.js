@@ -34,7 +34,7 @@ const Search = () => {
                 </Form>
             </div>
             <div style={{ display: 'flex' }}>
-                {result.map((t) => <SearchList key={t.uid} obj={t} />)}
+                {result.map((t) => <SearchList key={t.uid} searchObj={t} />)}
             </div>
         </>
     );

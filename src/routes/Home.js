@@ -1,16 +1,17 @@
-import Tweets from 'components/Tweets';
-import TweetList from 'components/TweetList';
+import Tweets from 'components/Tweet/Tweets';
+import TweetList from 'components/Tweet/TweetList';
 import { dbService } from 'Database';
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { faPen, faHome, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faHome, faSearch, faTimes, faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import * as actions from '../action/Action';
 import '../css/Home/Home.css';
 import { connect } from 'react-redux';
-import Search from 'components/Search';
+import Search from 'components/Search/Search';
+import Follow from 'components/Follow/Follow';
 
-const Home = ({userObj, isSearch, searchHide}) => {
+const Home = ({userObj, isSearch, searchHide, isFriend, followHide}) => {
     const [tweets, setTweets] = useState([]);
     const [tweetWrite, setTweetWrite] = useState(false);
 
@@ -72,7 +73,21 @@ const Home = ({userObj, isSearch, searchHide}) => {
                         <Search />
                     </div>                    
                 </div>
-            ) : null }            
+            ) : null }
+            { isFriend ? (
+                <div className='search'>
+                    <div style={{height: '5vh', backgroundColor: '#1c2938', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                        <div> 
+                            <FontAwesomeIcon icon={faUserFriends} color={'#04AAFF'} size='lg' style={{marginLeft: '1vw'}} />
+                            <span style={{color: 'white', marginLeft: '0.5vw'}}>follow info</span>
+                        </div>
+                        <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' style={{cursor: 'pointer', marginRight: '1vw'}} onClick={followHide}/>
+                    </div>
+                    <div style={{ width: '100%', marginTop: '1vh', display: 'flex', flexDirection: 'column', height: '83vh', overflow: 'scroll', overflowX: 'hidden', overflowY: 'hidden'}}>
+                        <Follow />
+                    </div>
+                </div>
+            ) : null }
         </div>
     )
 }
@@ -80,13 +95,15 @@ const Home = ({userObj, isSearch, searchHide}) => {
 function mapStateToProps(state) {
     return { 
         userObj : state.userReducer.userObj,
-        isSearch : state.searchReducer.isSearch
+        isSearch : state.searchReducer.isSearch,
+        isFriend : state.followReducer.isFriend
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        searchHide: () => dispatch(actions.searchHide())
+        searchHide: () => dispatch(actions.searchHide()),
+        followHide: () => dispatch(actions.followHide())
     };
 }
 

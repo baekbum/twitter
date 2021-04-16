@@ -1,6 +1,6 @@
 import { authService, dbService } from 'Database';
-import defaultImage from '../../image/default.png';
-import * as actions from '../../action/Action';
+import defaultImage from '../image/default.png';
+import * as actions from '../action/Action';
 
 export const setUserDB = async () => {
     const curUser = authService.currentUser;
