@@ -1,11 +1,11 @@
 import * as types from '../action/ActionTypes';
 
-const followReducer = (state = { isFriend: false }, action) => {
+const followReducer = (state = { isFollow: false }, action) => {
     switch(action.type) {
         case types.FOLLOW_SHOW:
-            return { isFriend: true }
+            return { isFollow: true }
         case types.FOLLOW_HIDE:
-            return { isFriend: false }
+            return { isFollow: false }
         default:
             return state;
     }

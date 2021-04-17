@@ -8,6 +8,7 @@ const Tweets = ({userObj}) => {
     const [text, setText] = useState('');
     const [imageFile, setImageFile] = useState('');
     const [imageName, setImageName] = useState('');
+
     const onTextChange = (event) => {
         const value = event.target.value;
         setText(value);

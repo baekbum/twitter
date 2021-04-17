@@ -12,5 +12,8 @@
 # 0413 - 기존 - 사용자 정보 component 마다 prop으로 전달
 # 0413 - 변경 - 사용자 정보 redux 방식으로 변경
 # 0414 - reducer 분할, search layout 처리, userObj 처리 방법 함수화.
-# 0415 - 유저 search 완료
+# 0415 - 유저 search 완료 
 <![search](./readmeImg/search.png)>
+# 0416 - 유저 follow 기능 추가, 검색한 유저가 본인이거나 이미 팔로우한 사용자라면 팔로우 버튼 숨김 처리
+# 0417 - 내가 팔로잉 중인 유저, 나를 팔로우 하는 유저 기능 개발 
+<![follow](./readmeImg/follow.png)>

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { Card, Image } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { isFollow, setFollow } from '../../dbFuncion/Follow';
+import { isFollow, addFollow } from '../../dbFuncion/Follow';
 
 const SearchList = ({searchObj, userObj}) => {
     const [ownerObj, setOwnerObj] = useState(null);
@@ -24,7 +24,8 @@ const SearchList = ({searchObj, userObj}) => {
     };
 
     const addFriend = async (searchObj) => {
-        await setFollow(ownerObj.uid, searchObj.uid);
+        await addFollow(ownerObj.uid, searchObj.uid);
+        alert('팔로우 했습니다.');
     };
     return (
         <Card style={{ width: '100%' }}>

@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import Search from 'components/Search/Search';
 import Follow from 'components/Follow/Follow';
 
-const Home = ({userObj, isSearch, searchHide, isFriend, followHide}) => {
+const Home = ({userObj, isSearch, searchHide, isFollow, followHide}) => {
     const [tweets, setTweets] = useState([]);
     const [tweetWrite, setTweetWrite] = useState(false);
 
@@ -74,7 +74,7 @@ const Home = ({userObj, isSearch, searchHide, isFriend, followHide}) => {
                     </div>                    
                 </div>
             ) : null }
-            { isFriend ? (
+            { isFollow ? (
                 <div className='search'>
                     <div style={{height: '5vh', backgroundColor: '#1c2938', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                         <div> 
@@ -96,7 +96,7 @@ function mapStateToProps(state) {
     return { 
         userObj : state.userReducer.userObj,
         isSearch : state.searchReducer.isSearch,
-        isFriend : state.followReducer.isFriend
+        isFollow : state.followReducer.isFollow
     };
 }
 
