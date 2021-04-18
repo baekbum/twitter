@@ -10,8 +10,10 @@ import '../css/Home/Home.css';
 import { connect } from 'react-redux';
 import Search from 'components/Search/Search';
 import Follow from 'components/Follow/Follow';
+import { getFollowing, getFollower } from '../dbFuncion/Follow';
 
-const Home = ({userObj, isSearch, searchHide, isFollow, followHide}) => {
+const Home = ({userObj, isSearch, searchHide, isFollow, followHide, saveFollow}) => {
+    const [isFrist, setIsFrist] = useState(true);
     const [tweets, setTweets] = useState([]);
     const [tweetWrite, setTweetWrite] = useState(false);
 
@@ -20,14 +22,26 @@ const Home = ({userObj, isSearch, searchHide, isFollow, followHide}) => {
     };
 
     useEffect(() => {
-        dbService.collection('tweets').orderBy('createDt','desc').onSnapshot((snapshot) => {
-            const tweeetArray = snapshot.docs.map((doc) => ({
-                ...doc.data(),
-                id : doc.id
-            }));
-            setTweets(tweeetArray);
-        })
-    }, []);
+        async function init (uid) {
+            const following = await getFollowing(uid);
+            const followingId = following.map((o) => o.uid);
+            followingId.push(uid);            
+            const follower = await getFollower(uid);
+            await saveFollow(following, follower);            
+
+            if (isFrist) {
+                dbService.collection('tweets').where('userId','in',followingId).orderBy('createDt','desc').onSnapshot((snapshot) => {
+                    const tweeetArray = snapshot.docs.map((doc) => ({
+                        ...doc.data(),
+                        id : doc.id
+                    }));
+                    setTweets(tweeetArray);
+                });
+                setIsFrist(false);
+            }            
+        };
+        init(userObj.uid);
+    }, [userObj]);
 
     return (
         <div className='main-container'>
@@ -75,16 +89,16 @@ const Home = ({userObj, isSearch, searchHide, isFollow, followHide}) => {
                 </div>
             ) : null }
             { isFollow ? (
-                <div className='search'>
+                <div className='follow'>
                     <div style={{height: '5vh', backgroundColor: '#1c2938', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                         <div> 
                             <FontAwesomeIcon icon={faUserFriends} color={'#04AAFF'} size='lg' style={{marginLeft: '1vw'}} />
-                            <span style={{color: 'white', marginLeft: '0.5vw'}}>follow info</span>
+                            <span style={{color: 'white', marginLeft: '0.5vw'}}>Follow info</span>
                         </div>
                         <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' style={{cursor: 'pointer', marginRight: '1vw'}} onClick={followHide}/>
                     </div>
                     <div style={{ width: '100%', marginTop: '1vh', display: 'flex', flexDirection: 'column', height: '83vh', overflow: 'scroll', overflowX: 'hidden', overflowY: 'hidden'}}>
-                        <Follow />
+                        <Follow /> 
                     </div>
                 </div>
             ) : null }
@@ -103,7 +117,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         searchHide: () => dispatch(actions.searchHide()),
-        followHide: () => dispatch(actions.followHide())
+        followHide: () => dispatch(actions.followHide()),
+        saveFollow: (following, follower) => dispatch({ type: actions.saveFollow(), following: following, follower: follower})
     };
 }
 

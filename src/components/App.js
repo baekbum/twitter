@@ -11,7 +11,7 @@ function App({saveUser, initUser}) {
   useEffect(() => {
     authService.onAuthStateChanged(async (user) => {
       if (user) {
-        saveUser(await getUserDB(user.uid));
+        saveUser(await getUserDB(user.uid)); 
         setIsLoggedIn(true);
       } else {
         initUser();
@@ -19,7 +19,7 @@ function App({saveUser, initUser}) {
       }
       setInit(true);
     });
-  }, [saveUser, initUser]);
+  }, []);
   return (
     <>
       { init ? <AppRouter isLoggedIn={isLoggedIn} /> : 'initializing...' }

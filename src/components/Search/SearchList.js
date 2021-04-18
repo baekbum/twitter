@@ -4,8 +4,10 @@ import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { Card, Image } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { isFollow, addFollow } from '../../dbFuncion/Follow';
+import { getFollowing, getFollower } from '../../dbFuncion/Follow';
+import * as actions from '../../action/Action';
 
-const SearchList = ({searchObj, userObj}) => {
+const SearchList = ({searchObj, userObj, saveFollow}) => {
     const [ownerObj, setOwnerObj] = useState(null);
     const [isOwner, setIsOwner] = useState(false);
     const [isFollowImg, setIsFollowImg] = useState(false);
@@ -25,7 +27,14 @@ const SearchList = ({searchObj, userObj}) => {
 
     const addFriend = async (searchObj) => {
         await addFollow(ownerObj.uid, searchObj.uid);
+        setIsOwner(false);
+        setIsFollowImg(false);
+        initFollow(userObj.uid);
         alert('팔로우 했습니다.');
+    };
+
+    const initFollow = async (uid) => {
+        await saveFollow(await getFollowing(uid), await getFollower(uid));
     };
     return (
         <Card style={{ width: '100%' }}>
@@ -60,4 +69,10 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, null) (SearchList);
+function mapDispatchToProps(dispatch) {
+    return {
+        saveFollow: (following, follower) => dispatch({ type: actions.saveFollow(), following: following, follower: follower})
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (SearchList);

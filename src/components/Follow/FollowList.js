@@ -2,21 +2,27 @@ import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserTimes, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { Card, Image } from 'react-bootstrap';
-import { addFollow, deleteFollow } from '../../dbFuncion/Follow'
+import { addFollow, deleteFollow, getFollowing, getFollower } from '../../dbFuncion/Follow'
 import { connect } from 'react-redux';
+import * as actions from '../../action/Action';
 
-const FollowList = ({userObj, type, obj}) => {
+const FollowList = ({userObj, type, obj, saveFollow}) => {
     const unFollow = async (obj) => {
         const check = window.confirm('정말 언팔로우 하시겠습니까?');
         
         if (check) {
-            deleteFollow(userObj.uid, obj.uid);
+            await deleteFollow(userObj.uid, obj.uid);
+            await initFollow(userObj.uid);
             alert('언팔로우 했습니다.');
         }
     };
     const addFriend = async (obj) => {
         await addFollow(userObj.uid, obj.uid);
+        await initFollow(userObj.uid);
         alert('팔로우 했습니다.');
+    };
+    const initFollow = async (uid) => {
+        await saveFollow(await getFollowing(uid), await getFollower(uid));
     };
     return (
         <Card style={{ width: '100%' }}>
@@ -48,4 +54,10 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, null) (FollowList);
+function mapDispatchToProps(dispatch) {
+    return {
+        saveFollow: (following, follower) => dispatch({ type: actions.saveFollow(), following: following, follower: follower})
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (FollowList);

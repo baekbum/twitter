@@ -20,6 +20,14 @@ export const addFollow = async (ownerId, followId) => {
     await dbService.collection('followInfo').add(followInfo);
 };
 
+export const deleteFollow = async (ownerId, followId) => {
+    const info = await dbService.collection('followInfo').where('targetId','==',followId).where('followerId','==',ownerId).get();
+
+    const docId = info.docs.map((doc) => (doc.id));
+
+    await dbService.doc(`followInfo/${docId}`).delete();
+};
+
 export const getFollowing = async (ownerId) => {
     const followList = await dbService.collection('followInfo').where('followerId','==',ownerId).get();
     let followArray = [];
@@ -61,10 +69,3 @@ const getFollowList = async (paramArray) => {
     return followArray;
 }
 
-export const deleteFollow = async (ownerId, followId) => {
-    const info = await dbService.collection('followInfo').where('targetId','==',followId).where('followerId','==',ownerId).get();
-
-    const docId = info.docs.map((doc) => (doc.id));
-
-    await dbService.doc(`followInfo/${docId}`).delete();
-};

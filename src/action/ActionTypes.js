@@ -3,3 +3,4 @@ export const SEARCH_SHOW = 'SEARCH_SHOW';
 export const SEARCH_HIDE = 'SEARCH_HIDE';
 export const FOLLOW_SHOW = 'FOLLOW_SHOW';
 export const FOLLOW_HIDE = 'FOLLOW_HIDE';
+export const SAVE_FOLLOW = 'SAVE_FOLLOW';
