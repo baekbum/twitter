@@ -4,37 +4,33 @@
     width: 100%;
     height: 100%;
     background-color: #e1e8ed;
-    overflow: scroll;
-    overflow-y: hidden;
-    overflow-x: hidden;
 }
 
-.main-container .tweet-list {
+.main-container .item-layout {
     width: 25vw;
     padding: 0.5em;
 }
 
-.main-container .tweet {
-    width: 25vw;
-    padding: 0.5em;
+.main-container .item-header {
+    display: flex;
+    height: 5vh;
+    background-color: #1c2938;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.main-container .message-list {
-    width: 25vw;
-    padding: 0.5em;
+.main-container .item-header .title-icon{
+    margin-left: 1vw;
 }
 
-.main-container .message {
-    width: 25vw;
-    padding: 0.5em;
+.main-container .item-header .item-close{
+    cursor: pointer;
+    margin-right: 1vw;
 }
 
-.main-container .search {
-    width: 25vw;
-    padding: 0.5em;
-}
-
-.main-container .follow {
-    width: 25vw;
-    padding: 0.5em;
+@media screen and (max-width: 768px) {
+    .main-container .item-layout {
+        width: 100vw;
+        padding: 0.5em;
+    }
 }

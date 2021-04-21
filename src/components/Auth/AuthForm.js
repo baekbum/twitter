@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { Form, Button } from 'react-bootstrap';
 import '../../css/Auth/AuthForm.css';
+import { setUserDB } from '../../dbFuncion/UserInfo';
 
 const AuthForm = () => {
     const [email, setEmail] = useState('');
@@ -43,6 +44,7 @@ const AuthForm = () => {
         }
 
         await authService.signInWithPopup(provider);
+        setUserDB();
     }
     return (
         <>

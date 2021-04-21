@@ -18,8 +18,8 @@ const Follow = ({following, follower}) => {
 
 function mapStateToProps(state) {
     return {
-        following : state.followDataReducer.following,
-        follower : state.followDataReducer.follower
+        following : state.followReducer.following,
+        follower : state.followReducer.follower
     };
 }
 

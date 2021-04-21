@@ -7,7 +7,7 @@ import '../css/Auth/Auth.css';
 const Auth = () => { 
     return (
         <div className='auth-container'>
-            <div style={{ width: '25vw', display: 'flex', flexDirection: 'column'}}>
+            <div className='auth-box'>
                 <div className='auth-twitter-icon'>
                     <FontAwesomeIcon icon={faTwitter} color={'#04AAFF'} size='3x' style={{ marginBottom: '3vh' }}/>
                 </div>

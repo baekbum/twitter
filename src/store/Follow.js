@@ -1,11 +1,9 @@
 import * as types from '../action/ActionTypes';
 
-const followReducer = (state = { isFollow: false }, action) => {
+const followReducer = (state = { following : [], follower : [] }, action) => {
     switch(action.type) {
-        case types.FOLLOW_SHOW:
-            return { isFollow: true }
-        case types.FOLLOW_HIDE:
-            return { isFollow: false }
+        case types.SAVE_FOLLOW:
+            return { following : action.following, follower : action.follower }
         default:
             return state;
     }

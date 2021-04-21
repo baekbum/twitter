@@ -29,7 +29,7 @@ const FollowList = ({userObj, type, obj, saveFollow}) => {
             <Card.Body style={{ display: 'flex', flexDirection: 'row',  alignItems: 'center', justifyContent: 'space-between'}}>
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                     <div>
-                        <Image src={obj.photoURL} style={{height: '4vh', width: '4vh'}} roundedCircle />            
+                        <Image src={obj.photoURL} style={{height: '4vw', width: '4vw'}} roundedCircle />            
                     </div>
                     <div style={{display: 'flex', flexDirection: 'column', alignSelf: 'center', paddingLeft: '1vw'}}>
                         <div>{obj.displayName}</div>

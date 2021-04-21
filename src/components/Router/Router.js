@@ -3,19 +3,20 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import Auth from '../../routes/Auth';
 import Header from '../Header/Header';
 import Home from '../../routes/Home';
+import '../../css/Router/Router.css';
 
 const AppRouter = ({ isLoggedIn }) => {
     return (
         <Router>
             {isLoggedIn ? (
-                <div style={{width: '100vw', height: '7vh'}}>
+                <div className='header'>
                     <Header />
                 </div>
              )  : null}
             <Switch>
                 <>
                     {isLoggedIn ? ( 
-                        <div style={{ display: 'flex', justifyContent: 'center', height: '91vh', width: '100vw', marginTop: '1vh', marginBottom: '1vh'}}>
+                        <div className='main-layout'>
                             <Route exact path='/'>
                                 <Home />
                             </Route>

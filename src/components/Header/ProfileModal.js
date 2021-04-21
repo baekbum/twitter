@@ -91,7 +91,7 @@ const ProfileModal = ({userObj, dispatch}) => {
     };
     return (
         <>  
-            <Image src={userObj.photoURL} style={{height: '4vh', width: '4vh', cursor: 'pointer'}} onClick={onHandleModal.bind(this, true)} roundedCircle />            
+            <Image src={userObj.photoURL} style={{height: '3.5vh', width: '3.5vh', cursor: 'pointer'}} onClick={onHandleModal.bind(this, true)} roundedCircle />            
 
             <Modal show={show} onHide={onHandleModal.bind(this, false)} backdrop="static" keyboard={false}>
                 <Modal.Header closeButton style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>

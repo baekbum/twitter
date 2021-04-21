@@ -12,14 +12,9 @@ import Search from 'components/Search/Search';
 import Follow from 'components/Follow/Follow';
 import { getFollowing, getFollower } from '../dbFuncion/Follow';
 
-const Home = ({userObj, isSearch, searchHide, isFollow, followHide, saveFollow}) => {
+const Home = ({ state, dispatch }) => {
     const [isFrist, setIsFrist] = useState(true);
     const [tweets, setTweets] = useState([]);
-    const [tweetWrite, setTweetWrite] = useState(false);
-
-    const onTweetShow = () => {
-        setTweetWrite((prev) => !prev);
-    };
 
     useEffect(() => {
         async function init (uid) {
@@ -27,7 +22,7 @@ const Home = ({userObj, isSearch, searchHide, isFollow, followHide, saveFollow})
             const followingId = following.map((o) => o.uid);
             followingId.push(uid);            
             const follower = await getFollower(uid);
-            await saveFollow(following, follower);            
+            await dispatch.saveFollow(following, follower);            
 
             if (isFrist) {
                 dbService.collection('tweets').where('userId','in',followingId).orderBy('createDt','desc').onSnapshot((snapshot) => {
@@ -40,62 +35,59 @@ const Home = ({userObj, isSearch, searchHide, isFollow, followHide, saveFollow})
                 setIsFrist(false);
             }            
         };
-        init(userObj.uid);
-    }, [userObj]);
+        init(state.userObj.uid);
+    }, [state.userObj]);
 
     return (
         <div className='main-container'>
-            <div className='tweet-list'>
-                <div style={{height: '5vh', backgroundColor: '#1c2938', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                    <div> 
-                        <FontAwesomeIcon icon={faHome} color={'#04AAFF'} size='lg' style={{marginLeft: '1vw'}} />
-                        <span style={{color: 'white', marginLeft: '0.5vw'}}>TimeLine</span>
-                    </div>
-                    <FontAwesomeIcon icon={faPen} color={'#04AAFF'} size='1x' style={{cursor: 'pointer', marginRight: '1vw'}} onClick={onTweetShow}/>
-                </div>
-                <div style={{ marginTop: '1vh', display: 'flex', flexDirection: 'column', height: '83vh', overflow: 'scroll', overflowX: 'hidden'}}>
-                    {tweets.map((t) => <TweetList key={t.id} tweetObj={t} isOwner={t.userId === userObj.uid ? true : false} />)}
-                </div>
-            </div>
-            { tweetWrite ? (
-                <div className='tweet'>
-                    <div style={{height: '5vh', backgroundColor: '#1c2938', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+            { state.isTimeLine ? (
+                <div className='item-layout'>
+                    <div className='item-header'>
                         <div> 
-                            <FontAwesomeIcon icon={faTwitter} color={'#04AAFF'} size='lg' style={{marginLeft: '1vw'}} />
+                            <FontAwesomeIcon icon={faHome} color={'#04AAFF'} size='lg' className='title-icon' />
+                            <span style={{color: 'white', marginLeft: '0.5vw'}}>TimeLine</span>
+                        </div>
+                        <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' className='item-close' onClick={dispatch.timelineHide}/>
+                    </div>
+                    <div style={{ marginTop: '1vh', display: 'flex', flexDirection: 'column', height: '83vh', overflow: 'scroll', overflowX: 'hidden'}}>
+                        {tweets.map((t) => <TweetList key={t.id} tweetObj={t} isOwner={t.userId === state.userObj.uid ? true : false} />)}
+                    </div>
+                </div>
+            ) : null }            
+            { state.isTweet ? (
+                <div className='item-layout'>
+                    <div className='item-header'>
+                        <div> 
+                            <FontAwesomeIcon icon={faTwitter} color={'#04AAFF'} size='lg' className='title-icon' />
                             <span style={{color: 'white', marginLeft: '0.5vw'}}>Tweet</span>
                         </div>
+                        <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' className='item-close' onClick={dispatch.tweetHide}/>
                     </div>
                     <Tweets />
                 </div>
-            ) : null }            
-            <div className='message-list' style={{display: 'none'}}>
-                DM
-            </div>
-            <div className='message' style={{display: 'none'}}>
-                DM write
-            </div>
-            { isSearch ? (
-                <div className='search'>
-                    <div style={{height: '5vh', backgroundColor: '#1c2938', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+            ) : null }
+            { state.isSearch ? (
+                <div className='item-layout'>
+                    <div className='item-header'>
                         <div> 
-                            <FontAwesomeIcon icon={faSearch} color={'#04AAFF'} size='lg' style={{marginLeft: '1vw'}} />
+                            <FontAwesomeIcon icon={faSearch} color={'#04AAFF'} size='lg' className='title-icon' />
                             <span style={{color: 'white', marginLeft: '0.5vw'}}>Search</span>
                         </div>
-                        <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' style={{cursor: 'pointer', marginRight: '1vw'}} onClick={searchHide}/>
+                        <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' className='item-close' onClick={dispatch.searchHide}/>
                     </div>
                     <div style={{ width: '100%', marginTop: '1vh', display: 'flex', flexDirection: 'column', height: '83vh', overflow: 'scroll', overflowX: 'hidden', overflowY: 'hidden'}}>
                         <Search />
                     </div>                    
                 </div>
             ) : null }
-            { isFollow ? (
-                <div className='follow'>
-                    <div style={{height: '5vh', backgroundColor: '#1c2938', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+            { state.isFollow ? (
+                <div className='item-layout'>
+                    <div className='item-header'>
                         <div> 
-                            <FontAwesomeIcon icon={faUserFriends} color={'#04AAFF'} size='lg' style={{marginLeft: '1vw'}} />
+                            <FontAwesomeIcon icon={faUserFriends} color={'#04AAFF'} size='lg' className='title-icon' />
                             <span style={{color: 'white', marginLeft: '0.5vw'}}>Follow info</span>
                         </div>
-                        <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' style={{cursor: 'pointer', marginRight: '1vw'}} onClick={followHide}/>
+                        <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' className='item-close' onClick={dispatch.followHide}/>
                     </div>
                     <div style={{ width: '100%', marginTop: '1vh', display: 'flex', flexDirection: 'column', height: '83vh', overflow: 'scroll', overflowX: 'hidden', overflowY: 'hidden'}}>
                         <Follow /> 
@@ -107,18 +99,25 @@ const Home = ({userObj, isSearch, searchHide, isFollow, followHide, saveFollow})
 }
 
 function mapStateToProps(state) {
-    return { 
-        userObj : state.userReducer.userObj,
-        isSearch : state.searchReducer.isSearch,
-        isFollow : state.followReducer.isFollow
+    return { state : {
+            userObj : state.userReducer.userObj,
+            isTimeLine : state.isShowReducer.isTimeLine,
+            isTweet : state.isShowReducer.isTweet,
+            isSearch : state.isShowReducer.isSearch,
+            isFollow : state.isShowReducer.isFollow
+        }
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        searchHide: () => dispatch(actions.searchHide()),
-        followHide: () => dispatch(actions.followHide()),
-        saveFollow: (following, follower) => dispatch({ type: actions.saveFollow(), following: following, follower: follower})
+        dispatch : {
+            timelineHide: () => dispatch(actions.timelineHide()),
+            tweetHide: () => dispatch(actions.tweetHide()),
+            searchHide: () => dispatch(actions.searchHide()),
+            followHide: () => dispatch(actions.followHide()),
+            saveFollow: (following, follower) => dispatch({ type: actions.saveFollow(), following: following, follower: follower})
+        }        
     };
 }
 

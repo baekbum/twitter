@@ -18,3 +18,5 @@
 # 0417 - 내가 팔로잉 중인 유저, 나를 팔로우 하는 유저 기능 개발 
 <![follow](./readmeImg/follow.png)>
 # 0418 - 기존 팔로우, 언팔로우 시 새로고침하기 전에 view가 바뀌지 않는 현상 수정
+# 0421 - 로그인 및 메인 화면 헤더, timeline 반응형 css 적용, conponent의 show hide 처리 reducer 통합
+<![responsive](./readmeImg/responsive.png)>
