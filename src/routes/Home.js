@@ -49,7 +49,7 @@ const Home = ({ state, dispatch }) => {
                         </div>
                         <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' className='item-close' onClick={dispatch.timelineHide}/>
                     </div>
-                    <div style={{ marginTop: '1vh', display: 'flex', flexDirection: 'column', height: '83vh', overflow: 'scroll', overflowX: 'hidden'}}>
+                    <div className='item-content'>
                         {tweets.map((t) => <TweetList key={t.id} tweetObj={t} isOwner={t.userId === state.userObj.uid ? true : false} />)}
                     </div>
                 </div>
@@ -75,7 +75,7 @@ const Home = ({ state, dispatch }) => {
                         </div>
                         <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' className='item-close' onClick={dispatch.searchHide}/>
                     </div>
-                    <div style={{ width: '100%', marginTop: '1vh', display: 'flex', flexDirection: 'column', height: '83vh', overflow: 'scroll', overflowX: 'hidden', overflowY: 'hidden'}}>
+                    <div className='item-content' style={{ overflowY: 'hidden' }}>
                         <Search />
                     </div>                    
                 </div>
@@ -89,7 +89,7 @@ const Home = ({ state, dispatch }) => {
                         </div>
                         <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' className='item-close' onClick={dispatch.followHide}/>
                     </div>
-                    <div style={{ width: '100%', marginTop: '1vh', display: 'flex', flexDirection: 'column', height: '83vh', overflow: 'scroll', overflowX: 'hidden', overflowY: 'hidden'}}>
+                    <div className='item-content' style={{ overflowY: 'hidden' }}>
                         <Follow /> 
                     </div>
                 </div>
