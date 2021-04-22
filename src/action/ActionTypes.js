@@ -1,5 +1,5 @@
 export const SAVE_USER = 'SAVE_USER';
-
+export const SAVE_FOLLOW = 'SAVE_FOLLOW';
 export const TIMELINE_SHOW = 'TIMELINE_SHOW';
 export const TIMELINE_HIDE = 'TIMELINE_HIDE';
 export const TWEET_SHOW = 'TWEET_SHOW';
@@ -9,4 +9,13 @@ export const SEARCH_HIDE = 'SEARCH_HIDE';
 export const FOLLOW_SHOW = 'FOLLOW_SHOW';
 export const FOLLOW_HIDE = 'FOLLOW_HIDE';
 
-export const SAVE_FOLLOW = 'SAVE_FOLLOW';
+export const CONPONENT_SHOW_HIDE = {
+    'TIMELINE_SHOW' : 'TIMELINE_SHOW',
+    'TIMELINE_HIDE' : 'TIMELINE_HIDE',
+    'TWEET_SHOW' : 'TWEET_SHOW',
+    'TWEET_HIDE' : 'TWEET_HIDE',
+    'SEARCH_SHOW' : 'SEARCH_SHOW',
+    'SEARCH_HIDE' : 'SEARCH_HIDE',
+    'FOLLOW_SHOW' : 'FOLLOW_SHOW',
+    'FOLLOW_HIDE' : 'FOLLOW_HIDE'
+};

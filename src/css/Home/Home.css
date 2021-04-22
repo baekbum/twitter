@@ -19,6 +19,11 @@
     justify-content: space-between;
 }
 
+.main-container .item-header .title{
+    color: white;
+    margin-left: 0.5vw;
+}
+
 .main-container .item-header .title-icon{
     margin-left: 1vw;
 }
@@ -42,5 +47,17 @@
     .main-container .item-layout {
         width: 100vw;
         padding: 0.5em;
+    }
+    .main-container .item-header .title{
+        margin-left: 1.5vw;
+    }
+    .main-container .item-header .title-icon{
+        margin-left: 3vw;
+    }
+    .main-container .item-header .item-close{
+        display: none;
+    }
+    .main-container .item-content {
+        height: 85vh;        
     }
 }

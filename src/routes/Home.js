@@ -4,8 +4,9 @@ import { dbService } from 'Database';
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { faPen, faHome, faSearch, faTimes, faUserFriends } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faSearch, faTimes, faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import * as actions from '../action/Action';
+import * as types from '../action/ActionTypes';
 import '../css/Home/Home.css';
 import { connect } from 'react-redux';
 import Search from 'components/Search/Search';
@@ -45,9 +46,9 @@ const Home = ({ state, dispatch }) => {
                     <div className='item-header'>
                         <div> 
                             <FontAwesomeIcon icon={faHome} color={'#04AAFF'} size='lg' className='title-icon' />
-                            <span style={{color: 'white', marginLeft: '0.5vw'}}>TimeLine</span>
-                        </div>
-                        <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' className='item-close' onClick={dispatch.timelineHide}/>
+                            <span className='title'>TimeLine</span>
+                        </div> 
+                        <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' className='item-close' onClick={dispatch.timelineHide.bind(this, 'WEB')}/>
                     </div>
                     <div className='item-content'>
                         {tweets.map((t) => <TweetList key={t.id} tweetObj={t} isOwner={t.userId === state.userObj.uid ? true : false} />)}
@@ -59,9 +60,9 @@ const Home = ({ state, dispatch }) => {
                     <div className='item-header'>
                         <div> 
                             <FontAwesomeIcon icon={faTwitter} color={'#04AAFF'} size='lg' className='title-icon' />
-                            <span style={{color: 'white', marginLeft: '0.5vw'}}>Tweet</span>
+                            <span className='title'>Tweet</span>
                         </div>
-                        <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' className='item-close' onClick={dispatch.tweetHide}/>
+                        <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' className='item-close' onClick={dispatch.tweetHide.bind(this, 'WEB')}/>
                     </div>
                     <Tweets />
                 </div>
@@ -71,9 +72,9 @@ const Home = ({ state, dispatch }) => {
                     <div className='item-header'>
                         <div> 
                             <FontAwesomeIcon icon={faSearch} color={'#04AAFF'} size='lg' className='title-icon' />
-                            <span style={{color: 'white', marginLeft: '0.5vw'}}>Search</span>
+                            <span className='title'>Search</span>
                         </div>
-                        <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' className='item-close' onClick={dispatch.searchHide}/>
+                        <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' className='item-close' onClick={dispatch.searchHide.bind(this, 'WEB')}/>
                     </div>
                     <div className='item-content' style={{ overflowY: 'hidden' }}>
                         <Search />
@@ -85,9 +86,9 @@ const Home = ({ state, dispatch }) => {
                     <div className='item-header'>
                         <div> 
                             <FontAwesomeIcon icon={faUserFriends} color={'#04AAFF'} size='lg' className='title-icon' />
-                            <span style={{color: 'white', marginLeft: '0.5vw'}}>Follow info</span>
+                            <span className='title'>Follow info</span>
                         </div>
-                        <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' className='item-close' onClick={dispatch.followHide}/>
+                        <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' className='item-close' onClick={dispatch.followHide.bind(this, 'WEB')}/>
                     </div>
                     <div className='item-content' style={{ overflowY: 'hidden' }}>
                         <Follow /> 
@@ -112,10 +113,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         dispatch : {
-            timelineHide: () => dispatch(actions.timelineHide()),
-            tweetHide: () => dispatch(actions.tweetHide()),
-            searchHide: () => dispatch(actions.searchHide()),
-            followHide: () => dispatch(actions.followHide()),
+            timelineHide: (display) => dispatch(actions.componentShowHide(types.TIMELINE_HIDE, display)),
+            tweetHide: (display) => dispatch(actions.componentShowHide(types.TWEET_HIDE, display)),
+            searchHide: (display) => dispatch(actions.componentShowHide(types.SEARCH_HIDE, display)),
+            followHide: (display) => dispatch(actions.componentShowHide(types.FOLLOW_HIDE, display)),
             saveFollow: (following, follower) => dispatch({ type: actions.saveFollow(), following: following, follower: follower})
         }        
     };
