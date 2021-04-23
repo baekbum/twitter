@@ -22,3 +22,4 @@
 ![responsive1](./readmeImg/responsive1.png)
 # 0422 - 반응형 css를 적용했지만 기존에는 컴포넌트들을 여러 개 show 했을 떄 크기만 작아지는 현상을 화면 크기가 줄어들면 작아진 화면에 맞게 각 컴포넌트 하나씩만 보여지도록 처리 작아진 화면에서는  close 아이콘을 통하여 컴포넌트를 hide 시키지 않고 헤더의 아이콘을 클릭하여 컴포넌트 이동
 ![responsive2](./readmeImg/responsive2.png)
+# 0423 - webpack + babel 적용

@@ -1,4 +1,4 @@
-import AuthForm from 'components/Auth/AuthForm';
+import AuthForm from '../components/Auth/AuthForm';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';

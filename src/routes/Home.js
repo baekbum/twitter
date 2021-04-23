@@ -1,5 +1,3 @@
-import Tweets from 'components/Tweet/Tweets';
-import TweetList from 'components/Tweet/TweetList';
 import { dbService } from 'Database';
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,9 +7,11 @@ import * as actions from '../action/Action';
 import * as types from '../action/ActionTypes';
 import '../css/Home/Home.css';
 import { connect } from 'react-redux';
-import Search from 'components/Search/Search';
-import Follow from 'components/Follow/Follow';
 import { getFollowing, getFollower } from '../dbFuncion/Follow';
+import Tweets from '../components/Tweet/Tweets';
+import TweetList from '../components/Tweet/TweetList';
+import Search from '../components/Search/Search';
+import Follow from '../components/Follow/Follow';
 
 const Home = ({ state, dispatch }) => {
     const [isFrist, setIsFrist] = useState(true);
