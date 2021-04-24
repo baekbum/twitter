@@ -1,5 +1,5 @@
 import { authService } from 'Database';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { setUserDB } from '../../dbFuncion/UserInfo';
 
@@ -8,10 +8,12 @@ const AuthModal = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errMessage, setErrMessage] = useState('');
-    const onHandleModal = (show) => {
+
+    const onHandleModal = useCallback((show) => {
         setShow(show);
-    };
-    const onChange = (event) => {
+    },[]);
+    
+    const onChange = useCallback((event) => {
         const {target : {name, value}} = event;
 
         if (name === 'email') {
@@ -19,9 +21,11 @@ const AuthModal = () => {
         } else if (name === 'password'){
             setPassword(value);
         }
-    };
-    const onSignUp = async () => {
-        let data;        
+    },[]);
+
+    const onSignUp = useCallback(async () => {
+        let data; 
+
         try {
             data = await authService.createUserWithEmailAndPassword(email, password);
             setUserDB();
@@ -31,7 +35,7 @@ const AuthModal = () => {
             setErrMessage(error.message);
             console.log(errMessage);
         }
-    };
+    },[email, password, errMessage]);
     return (
       <>
         <Button variant="outline-secondary" style={{ width: '100%', marginTop: '2vh'}} onClick={onHandleModal.bind(this, true)}>

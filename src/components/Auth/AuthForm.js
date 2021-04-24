@@ -1,5 +1,5 @@
 import {authService, firebaseInstance} from '../../Database';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import AuthModal from './AuthModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
@@ -12,7 +12,7 @@ const AuthForm = () => {
     const [password, setPassword] = useState('');
     const [errMessage, setErrMessage] = useState('');
 
-    const onChange = (event) => {
+    const onChange = useCallback((event) => {
         const {target : {name, value}} = event;
 
         if (name === 'email') {
@@ -20,10 +20,11 @@ const AuthForm = () => {
         } else if (name === 'password'){
             setPassword(value);
         }
-    };
-    const onSignIn = async () => {
+    },[]);
+
+    const onSignIn = useCallback(async() => {
         let data;
-        
+
         try {
             data = await authService.signInWithEmailAndPassword(email, password);
 
@@ -32,8 +33,9 @@ const AuthForm = () => {
             setErrMessage(error.message);
             console.log(errMessage);
         }
-    };
-    const onSocialClick = async (event) => {
+    },[email, password, errMessage]);
+
+    const onSocialClick = useCallback(async (event) => {
         const name = event.target.name;
         let provider;
 
@@ -45,7 +47,8 @@ const AuthForm = () => {
 
         await authService.signInWithPopup(provider);
         setUserDB();
-    }
+    },[]);
+
     return (
         <>
             <Form>
