@@ -37,6 +37,7 @@ const Home = ({ state, dispatch }) => {
             }            
         };
         init(state.userObj.uid);
+        // eslint-disable-next-line
     }, [state.userObj]);
 
     return (

@@ -16,7 +16,7 @@
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
-    "babel-loader": "^8.2.2",
+    "babel-loader": "8.1.0",
     "bootstrap": "^4.6.0",
     "css-loader": "^5.2.4",
     "file-loader": "^6.2.0",
@@ -35,7 +35,8 @@
     "redux": "^4.0.5",
     "uuid": "^8.3.2",
     "web-vitals": "^1.1.1",
-    "webpack": "^5.35.0"
+    "webpack": "^4.44.2",
+    "webpack-cli": "^4.6.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -63,7 +64,5 @@
     ]
   },
   "homepage": "https://baekbum.github.io/twitter",
-  "devDependencies": {
-    "webpack-cli": "^4.6.0"
-  }
+  "devDependencies": {}
 }

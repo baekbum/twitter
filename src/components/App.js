@@ -20,6 +20,7 @@ function App({saveUser, initUser}) {
       }
       setInit(true);
     });
+    // eslint-disable-next-line
   }, []);
   return (
     <>
