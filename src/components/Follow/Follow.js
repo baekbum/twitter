@@ -3,14 +3,14 @@ import { Tab, Tabs } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import FollowList from './FollowList';
 
-const Follow = ({following, follower}) => {
+const Follow = ({state}) => {
     return ( 
         <Tabs defaultActiveKey="following" id="followTab" style={{backgroundColor: '#d1d3e6'}}>
             <Tab eventKey="following" title="팔로잉">
-                {following.map((o) => <FollowList key={o.uid} type={'following'} obj={o} />)}
+                {state.following.map((o) => <FollowList key={o.uid} type={'following'} obj={o} />)}
             </Tab>
             <Tab eventKey="follower" title="팔로워">
-                {follower.map((o) => <FollowList key={o.uid} type={'follower'} obj={o} />)}
+                {state.follower.map((o) => <FollowList key={o.uid} type={'follower'} obj={o} />)}
             </Tab>
         </Tabs>
     );
@@ -18,8 +18,10 @@ const Follow = ({following, follower}) => {
 
 function mapStateToProps(state) {
     return {
-        following : state.followReducer.following,
-        follower : state.followReducer.follower
+        state : {
+            following : state.followReducer.following,
+            follower : state.followReducer.follower
+        }        
     };
 }
 

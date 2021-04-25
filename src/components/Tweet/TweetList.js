@@ -1,16 +1,17 @@
 import { dbService, storageService } from 'Database';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Card, Button, Image } from 'react-bootstrap';
 
 const TweetList = ({tweetObj, isOwner}) => {
-    const onDelete = async () => {
+    const onDelete = useCallback(async () => {
         const check = window.confirm('정말 삭제하시겠습니까?');
         
         if (check) {
             await dbService.doc(`tweets/${tweetObj.id}`).delete();
             await storageService.refFromURL(tweetObj.fileUrl).delete();
         }
-    }
+    },[tweetObj]);
+
     return (
         <Card style={{marginBottom: '1vh'}}>
             <Card.Header>

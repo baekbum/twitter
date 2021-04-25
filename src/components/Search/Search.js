@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -8,12 +8,14 @@ import SearchList from './SearchList';
 const Search = () => {
     const [result, setResult] = useState([]);
     const [searchVal, setSearchVal] = useState('');
-    const onChange = (event) => {
+
+    const onChange = useCallback((event) => {
         const value = event.target.value;
 
         setSearchVal(value);
-    };
-    const onSearch = async() => {
+    },[]);
+
+    const onSearch = useCallback(async () => {
         const userList = await dbService.collection('userInfo').where('tagId','==',searchVal).get();        
 
         const userArray = userList.docs.map((doc) => ({
@@ -21,8 +23,9 @@ const Search = () => {
             id : doc.id
         }));
 
-        setResult(userArray);    
-    };
+        setResult(userArray);
+    },[searchVal]);
+
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column' }}>

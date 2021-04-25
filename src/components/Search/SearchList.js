@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { Card, Image } from 'react-bootstrap';
@@ -7,35 +7,38 @@ import { isFollow, addFollow } from '../../dbFuncion/Follow';
 import { getFollowing, getFollower } from '../../dbFuncion/Follow';
 import * as actions from '../../action/Action';
 
-const SearchList = ({searchObj, userObj, saveFollow}) => {
+const SearchList = ({searchObj, state, dispatch}) => {
     const [ownerObj, setOwnerObj] = useState(null);
     const [isOwner, setIsOwner] = useState(false);
     const [isFollowImg, setIsFollowImg] = useState(false);
 
     useEffect(() => {
-        setOwnerObj(userObj);
-        showFollowImg(userObj, searchObj);
-    }, [userObj, searchObj]);
-    
-    const showFollowImg = async (userObj, searchObj) => {
+        setOwnerObj(state.userObj);
+        showFollowImg(state.userObj, searchObj);
+        // eslint-disable-next-line
+    },[state.userObj, searchObj]);
+
+    const showFollowImg = useCallback(async (userObj, searchObj) => {
         const _isOwner = userObj.uid === searchObj.uid ? false : true;
         const _isFollow = await isFollow(userObj.uid, searchObj.uid);
         const result = (_isOwner) && (_isFollow) ? true : false;
         setIsOwner(!_isOwner);
-        setIsFollowImg(result); 
-    };
+        setIsFollowImg(result);
+    },[]);
 
-    const addFriend = async (searchObj) => {
+    const addFriend = useCallback(async (searchObj) => {
         await addFollow(ownerObj.uid, searchObj.uid);
         setIsOwner(false);
         setIsFollowImg(false);
-        initFollow(userObj.uid);
+        saveFollow(ownerObj.uid);
         alert('팔로우 했습니다.');
-    };
+        // eslint-disable-next-line
+    },[ownerObj]);
 
-    const initFollow = async (uid) => {
-        await saveFollow(await getFollowing(uid), await getFollower(uid));
-    };
+    const saveFollow = useCallback(async (uid) => {
+        await dispatch.saveFollow(await getFollowing(uid), await getFollower(uid));
+    },[dispatch]);
+
     return (
         <Card style={{ width: '100%' }}>
             <Card.Body style={{ display: 'flex', flexDirection: 'row',  alignItems: 'center', justifyContent: 'space-between'}}>
@@ -64,14 +67,18 @@ const SearchList = ({searchObj, userObj, saveFollow}) => {
 };
 
 function mapStateToProps(state) {
-    return { 
-        userObj : state.userReducer.userObj,
+    return {
+        state : {
+            userObj : state.userReducer.userObj
+        }        
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        saveFollow: (following, follower) => dispatch({ type: actions.saveFollow(), following: following, follower: follower})
+        dispatch : {
+            saveFollow: (following, follower) => dispatch({ type: actions.saveFollow(), following: following, follower: follower})
+        }
     };
 }
 

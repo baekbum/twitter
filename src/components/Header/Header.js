@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useHistory } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
@@ -12,10 +12,11 @@ import '../../css/Header/Header.css';
 
 const Header = ({ dispatch }) => {
     const history = useHistory();
-    const onLogOutClick = () => {
+    const onLogOutClick = useCallback(() => {
         authService.signOut();
         history.push('/');
-    };
+        // eslint-disable-next-line
+    },[]);
 
     return (
         <nav className='header-nav'>

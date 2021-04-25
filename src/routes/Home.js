@@ -101,7 +101,8 @@ const Home = ({ state, dispatch }) => {
 }
 
 function mapStateToProps(state) {
-    return { state : {
+    return { 
+        state : {
             userObj : state.userReducer.userObj,
             isTimeLine : state.isShowReducer.isTimeLine,
             isTweet : state.isShowReducer.isTweet,

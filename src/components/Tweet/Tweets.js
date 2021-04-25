@@ -1,19 +1,20 @@
 import { dbService, storageService } from 'Database';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Form, Button, Image } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 
-const Tweets = ({userObj}) => {
+const Tweets = ({state}) => {
     const [text, setText] = useState('');
     const [imageFile, setImageFile] = useState('');
     const [imageName, setImageName] = useState('');
 
-    const onTextChange = (event) => {
+    const onTextChange = useCallback((event) => {
         const value = event.target.value;
         setText(value);
-    };
-    const onFileChange = (event) => {
+    },[]);
+
+    const onFileChange = useCallback((event) => {
         const files = event.target.files;
         const file = files[0];
         const reader = new FileReader();
@@ -23,19 +24,21 @@ const Tweets = ({userObj}) => {
         }
         setImageName(file.name);
         reader.readAsDataURL(file);
-    };
-    const onClearImage = () => {
+    },[]);
+
+    const onClearImage = useCallback(() => {
         setImageName('');
         setImageFile('');
-    };
-    const onTweet = async () => {
+    },[]);
+
+    const onTweet = useCallback(async () => {
         if (text === '') {
             return;
         }
 
         let fileUrl = '';
         if (imageFile) {
-            const fileRef = storageService.ref().child(`${userObj.uid}/${uuid()}`);
+            const fileRef = storageService.ref().child(`${state.userObj.uid}/${uuid()}`);
             const fileInstance = await fileRef.putString(imageFile, 'data_url');
             fileUrl = await fileInstance.ref.getDownloadURL();
         }
@@ -43,16 +46,18 @@ const Tweets = ({userObj}) => {
         const tweetObj = {
             content : text,
             createDt : Date.now(),
-            userId : userObj.uid,
-            tagId : userObj.tagId,
-            userName : userObj.displayName,
+            userId : state.userObj.uid,
+            tagId : state.userObj.tagId,
+            userName : state.userObj.displayName,
             fileUrl : fileUrl
         }
 
         await dbService.collection('tweets').add(tweetObj);
         setText('');
         onClearImage();
-    };
+        // eslint-disable-next-line
+    },[state.userObj, imageFile, text]);
+
     return (
         <>
             <Form>
@@ -75,7 +80,11 @@ const Tweets = ({userObj}) => {
 }
 
 function mapStateToProps(state) {
-    return { userObj : state.userReducer.userObj };
+    return { 
+        state : {
+            userObj : state.userReducer.userObj 
+        }        
+    };
 }
 
 export default connect(mapStateToProps, null) (Tweets);

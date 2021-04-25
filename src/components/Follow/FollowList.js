@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserTimes, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { Card, Image } from 'react-bootstrap';
@@ -6,24 +6,29 @@ import { addFollow, deleteFollow, getFollowing, getFollower } from '../../dbFunc
 import { connect } from 'react-redux';
 import * as actions from '../../action/Action';
 
-const FollowList = ({userObj, type, obj, saveFollow}) => {
-    const unFollow = async (obj) => {
+const FollowList = ({type, obj, state, dispatch}) => {
+    const unFollow = useCallback(async (obj) => {
         const check = window.confirm('정말 언팔로우 하시겠습니까?');
         
         if (check) {
-            await deleteFollow(userObj.uid, obj.uid);
-            await initFollow(userObj.uid);
+            await deleteFollow(state.userObj.uid, obj.uid);
+            await saveFollow(state.userObj.uid);
             alert('언팔로우 했습니다.');
         }
-    };
-    const addFriend = async (obj) => {
-        await addFollow(userObj.uid, obj.uid);
-        await initFollow(userObj.uid);
+        // eslint-disable-next-line
+    },[obj, state.userObj]);
+
+    const addFriend = useCallback(async (obj) => {
+        await addFollow(state.userObj.uid, obj.uid);
+        await saveFollow(state.userObj.uid);
         alert('팔로우 했습니다.');
-    };
-    const initFollow = async (uid) => {
-        await saveFollow(await getFollowing(uid), await getFollower(uid));
-    };
+        // eslint-disable-next-line
+    },[obj, state.userObj]);
+
+    const saveFollow = useCallback(async (uid) => {
+        await dispatch.saveFollow(await getFollowing(uid), await getFollower(uid));
+    },[dispatch]);
+   
     return (
         <Card style={{ width: '100%' }}>
             <Card.Body style={{ display: 'flex', flexDirection: 'row',  alignItems: 'center', justifyContent: 'space-between'}}>
@@ -49,14 +54,18 @@ const FollowList = ({userObj, type, obj, saveFollow}) => {
 };
 
 function mapStateToProps(state) {
-    return { 
-        userObj : state.userReducer.userObj
+    return {
+        state : {
+            userObj : state.userReducer.userObj
+        }
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        saveFollow: (following, follower) => dispatch({ type: actions.saveFollow(), following: following, follower: follower})
+        dispatch : {
+            saveFollow: (following, follower) => dispatch({ type: actions.saveFollow(), following: following, follower: follower})
+        }
     };
 }
 
