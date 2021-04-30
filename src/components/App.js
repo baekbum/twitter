@@ -3,7 +3,7 @@ import AppRouter from './Router/Router';
 import {authService } from '../Database';
 import { connect } from "react-redux";
 import { getUserDB, setUserObject } from '../dbFuncion/UserInfo';
-import '../css/App.css';
+import '../css/App.scss';
 
 function App({saveUser, initUser}) {
   const [init, setInit] = useState(false)

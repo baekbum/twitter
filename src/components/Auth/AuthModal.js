@@ -2,6 +2,7 @@ import { authService } from 'Database';
 import React, { useCallback, useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { setUserDB } from '../../dbFuncion/UserInfo';
+import '../../css/Auth/AuthModal.scss';
 
 const AuthModal = () => {
     const [show, setShow] = useState(false);
@@ -38,7 +39,7 @@ const AuthModal = () => {
     },[email, password, errMessage]);
     return (
       <>
-        <Button variant="outline-secondary" style={{ width: '100%', marginTop: '2vh'}} onClick={onHandleModal.bind(this, true)}>
+        <Button variant="outline-secondary" className='btn-sign-up' onClick={onHandleModal.bind(this, true)}>
             가입하기
         </Button>
   

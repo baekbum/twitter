@@ -4,7 +4,7 @@ import AuthModal from './AuthModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { Form, Button } from 'react-bootstrap';
-import '../../css/Auth/AuthForm.css';
+import '../../css/Auth/AuthForm.scss';
 import { setUserDB } from '../../dbFuncion/UserInfo';
 
 const AuthForm = () => {
@@ -51,7 +51,7 @@ const AuthForm = () => {
 
     return (
         <>
-            <Form>
+            <Form className='div-form'>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control name="email" type="email" placeholder="Enter email" onChange={onChange} />
@@ -63,15 +63,15 @@ const AuthForm = () => {
                 <Form.Text className="text-muted">
                     { errMessage ? {errMessage} : '' }
                 </Form.Text>
-                <Button variant="primary" style={{ width: '100%'}} onClick={onSignIn} >
+                <Button variant="primary" className='btn-login' onClick={onSignIn} >
                     로그인
                 </Button>
             </Form>
-            <div className='auth-btns'>
-                <Button variant="outline-secondary" name="google" style={{ width: '100%'}} onClick={onSocialClick}>
+            <div className='div-social'>
+                <Button variant="outline-secondary" name="google" className='btn-login' onClick={onSocialClick}>
                     Continue with Google <FontAwesomeIcon icon={faGoogle} />
                 </Button>
-                <Button variant="outline-secondary" name="github" style={{ width: '100%'}} onClick={onSocialClick}>
+                <Button variant="outline-secondary" name="github" className='btn-login' onClick={onSocialClick}>
                     Continue with Github <FontAwesomeIcon icon={faGithub} />
                 </Button>
             </div>

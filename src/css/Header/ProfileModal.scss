@@ -1,0 +1,73 @@
+.img-icon {
+    height: 2em;
+    width: 2em;
+    cursor: pointer;
+}
+
+.div-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .btn-edit {
+        margin-left: 1vw;
+    }
+}
+
+.div-body {
+    display: flex;
+    flex-direction: column;
+
+    .div-profile {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 1vh;
+
+        > div {
+            height: 35vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .div-img {
+                height: 20vh;
+                width: 20vh;
+
+                img {
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+
+            .span {
+                &-name {
+                    font-size: 2em;
+                }
+                &-id {
+                    font-size: 1em;
+                }
+            }
+        }
+    }
+
+    .div-input {
+        padding-top: 1vh;
+        border-top: 0.5vh solid #dee2e6;
+
+        .div-form {
+            padding-bottom: 1vh;
+            border-bottom: 0.5vh solid #dee2e6;
+
+            .div-select-img {
+                display: flex;
+            }
+        }
+
+        .div-edit {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 1vh;
+        }
+    }
+}

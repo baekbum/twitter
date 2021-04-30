@@ -1,0 +1,35 @@
+$icon-color : #04AAFF;
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+
+    > div {
+        width: 25vw;
+        display: flex;
+        flex-direction: column;
+
+        .div-icon {
+            .icon {
+                margin-bottom: 3vh;
+                color: $icon-color;
+            }
+        }
+
+        .div-span {
+            font-size: 2.5em;
+            padding-bottom: 3vh;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .auth-container {    
+        div {
+            width: 80vw;
+        }
+    }
+}

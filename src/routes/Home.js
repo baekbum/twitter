@@ -5,7 +5,7 @@ import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faHome, faSearch, faTimes, faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import * as actions from '../action/Action';
 import * as types from '../action/ActionTypes';
-import '../css/Home/Home.css';
+import '../css/Home/Home.scss';
 import { connect } from 'react-redux';
 import { getFollowing, getFollower } from '../dbFuncion/Follow';
 import Tweets from '../components/Tweet/Tweets';
@@ -41,57 +41,57 @@ const Home = ({ state, dispatch }) => {
     }, [state.userObj]);
 
     return (
-        <div className='main-container'>
+        <div className='home-container'>
             { state.isTimeLine ? (
-                <div className='item-layout'>
-                    <div className='item-header'>
+                <div className='div-item-box'>
+                    <div className='div-header'>
                         <div> 
-                            <FontAwesomeIcon icon={faHome} color={'#04AAFF'} size='lg' className='title-icon' />
+                            <FontAwesomeIcon icon={faHome} size='lg' className='icon' />
                             <span className='title'>TimeLine</span>
                         </div> 
-                        <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' className='item-close' onClick={dispatch.timelineHide.bind(this, 'WEB')}/>
+                        <FontAwesomeIcon icon={faTimes} size='1x' className='icon-close' onClick={dispatch.timelineHide.bind(this, 'WEB')}/>
                     </div>
-                    <div className='item-content'>
+                    <div className='div-content'>
                         {tweets.map((t) => <TweetList key={t.id} tweetObj={t} isOwner={t.userId === state.userObj.uid ? true : false} />)}
                     </div>
                 </div>
             ) : null }            
             { state.isTweet ? (
-                <div className='item-layout'>
-                    <div className='item-header'>
+                <div className='div-item-box'>
+                    <div className='div-header'>
                         <div> 
-                            <FontAwesomeIcon icon={faTwitter} color={'#04AAFF'} size='lg' className='title-icon' />
+                            <FontAwesomeIcon icon={faTwitter} size='lg' className='icon' />
                             <span className='title'>Tweet</span>
                         </div>
-                        <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' className='item-close' onClick={dispatch.tweetHide.bind(this, 'WEB')}/>
+                        <FontAwesomeIcon icon={faTimes} size='1x' className='icon-close' onClick={dispatch.tweetHide.bind(this, 'WEB')}/>
                     </div>
                     <Tweets />
                 </div>
             ) : null }
             { state.isSearch ? (
-                <div className='item-layout'>
-                    <div className='item-header'>
+                <div className='div-item-box'>
+                    <div className='div-header'>
                         <div> 
-                            <FontAwesomeIcon icon={faSearch} color={'#04AAFF'} size='lg' className='title-icon' />
+                            <FontAwesomeIcon icon={faSearch} size='lg' className='icon' />
                             <span className='title'>Search</span>
                         </div>
-                        <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' className='item-close' onClick={dispatch.searchHide.bind(this, 'WEB')}/>
+                        <FontAwesomeIcon icon={faTimes} size='1x' className='icon-close' onClick={dispatch.searchHide.bind(this, 'WEB')}/>
                     </div>
-                    <div className='item-content' style={{ overflowY: 'hidden' }}>
+                    <div className='div-content-no-scroll'>
                         <Search />
                     </div>                    
                 </div>
             ) : null }
             { state.isFollow ? (
-                <div className='item-layout'>
-                    <div className='item-header'>
+                <div className='div-item-box'>
+                    <div className='div-header'>
                         <div> 
-                            <FontAwesomeIcon icon={faUserFriends} color={'#04AAFF'} size='lg' className='title-icon' />
+                            <FontAwesomeIcon icon={faUserFriends} size='lg' className='icon' />
                             <span className='title'>Follow info</span>
                         </div>
-                        <FontAwesomeIcon icon={faTimes} color={'#04AAFF'} size='1x' className='item-close' onClick={dispatch.followHide.bind(this, 'WEB')}/>
+                        <FontAwesomeIcon icon={faTimes} size='1x' className='icon-close' onClick={dispatch.followHide.bind(this, 'WEB')}/>
                     </div>
-                    <div className='item-content' style={{ overflowY: 'hidden' }}>
+                    <div className='div-content-no-scroll'>
                         <Follow /> 
                     </div>
                 </div>

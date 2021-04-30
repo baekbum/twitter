@@ -5,6 +5,7 @@ import { dbService, storageService } from 'Database';
 import { connect } from 'react-redux';
 import { refreshUserObj } from '../../dbFuncion/UserInfo';
 import defaultImage from '../../image/default.png';
+import '../../css/Header/ProfileModal.scss';
 
 const ProfileModal = ({state, dispatch}) => {
     const [show, setShow] = useState(false);
@@ -97,26 +98,26 @@ const ProfileModal = ({state, dispatch}) => {
 
     return (
         <>  
-            <Image src={state.userObj.photoURL} style={{height: '3.5vh', width: '3.5vh', cursor: 'pointer'}} onClick={onHandleModal.bind(this, true)} roundedCircle />            
+            <Image src={state.userObj.photoURL} className='img-icon' onClick={onHandleModal.bind(this, true)} roundedCircle />
 
             <Modal show={show} onHide={onHandleModal.bind(this, false)} backdrop="static" keyboard={false}>
-                <Modal.Header closeButton style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                <Modal.Header closeButton className='div-header'>
                     <Modal.Title>프로필</Modal.Title>
-                    <Button variant="outline-primary" size="sm" onClick={onToggleEdit} style={{ marginLeft: '1vw'}}>EditMode</Button>    
+                    <Button variant="outline-primary" size="sm" onClick={onToggleEdit} className='btn-edit'>EditMode</Button>    
                 </Modal.Header>
-                <Modal.Body style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div style={{display: 'flex', flexDirection: 'column', paddingBottom: '1vh'}}>
-                        <div style={{height: '35vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                            <div style={{height: '20vh', width: '20vh'}}>
-                                <Image src={state.userObj.photoURL} roundedCircle style={{width: '100%', height: '100%'}}/>
+                <Modal.Body className='div-body'>
+                    <div className='div-profile'>
+                        <div>
+                            <div className='div-img'>
+                                <Image src={state.userObj.photoURL} roundedCircle />
                             </div>
-                            <span style={{fontSize: '2em'}}>{state.userObj.displayName}</span>
-                            <span style={{fontSize: '1em'}}>{state.userObj.tagId}</span>
+                            <span className='span-name'>{state.userObj.displayName}</span>
+                            <span className='span-id'>{state.userObj.tagId}</span>
                         </div>
                     </div>
                     { editMode ? (
-                        <div style={{ paddingTop: '1vh', borderTop: '0.5vh solid #dee2e6'}}>
-                            <Form style={{paddingBottom: '1vh', borderBottom: '0.5vh solid #dee2e6'}}>
+                        <div className='div-input'>
+                            <Form className='div-form'>
                                 <Form.Group controlId="tagId">
                                     <Form.Label>Edit tagId</Form.Label>
                                     <Form.Control name="tagId" type="text" placeholder="Enter tagId" onChange={onChange} defaultValue={state.userObj.tagId} />
@@ -132,13 +133,13 @@ const ProfileModal = ({state, dispatch}) => {
                                 </Form.Group>
                                 <Form.Group controlId="profileImage">
                                     <Form.Label>Edit profile image</Form.Label>
-                                    <div style={{display: 'flex'}}>
+                                    <div className='div-select-img'>
                                         <Form.File id="image-file" label={ imageName === '' ? 'Edit profile image' : imageName } accept='image/*' custom onChange={onFileChange} />
                                         <Button variant="outline-secondary" onClick={onClearImage}>Clear</Button>
                                     </div>                                    
                                 </Form.Group>                                
                             </Form>
-                            <div style={{display: 'flex', justifyContent: 'flex-end', marginTop: '1vh'}}>
+                            <div className='div-edit'>
                                 <Button variant="primary" onClick={onEdit}>Edit</Button>
                             </div> 
                         </div>

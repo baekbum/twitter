@@ -1,0 +1,75 @@
+$icon-color : #04AAFF;
+
+.header-container {
+    height: inherit;
+    width: inherit;
+
+    .div-nav {
+        display: flex;
+        height: 100%;
+        background-color: #1c2938;
+        align-items: center;
+        justify-content: space-between;
+
+        .div-logo {
+            margin-left: 1vw;
+
+            .logo {
+                color: $icon-color;
+            }
+        }
+
+        .div-icon-web {
+            margin-right: 1vw;
+
+            .icon {
+                margin-right : 1vw;
+                cursor: pointer;
+                color: $icon-color;
+            }
+
+            .icon-last {
+                margin-left : 1vw;
+                cursor: pointer;
+                color: $icon-color;
+            }
+        }
+
+        .div-icon-mobile {
+            display: none;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header-container {
+        .div-nav {    
+            .div-logo {
+                display: none;
+            }
+    
+            .div-icon-web {
+                display: none;
+            }
+    
+            .div-icon-mobile {
+                display: flex;
+                width: 100%;
+                justify-content: space-evenly;
+                align-items: center;
+
+                .icon {
+                    margin-right : 1vw;
+                    cursor: pointer;
+                    color: $icon-color;
+                }
+    
+                .icon-last {
+                    margin-left : 1vw;
+                    cursor: pointer;
+                    color: $icon-color;
+                }
+            }
+        }
+    }
+}

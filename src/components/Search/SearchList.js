@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { isFollow, addFollow } from '../../dbFuncion/Follow';
 import { getFollowing, getFollower } from '../../dbFuncion/Follow';
 import * as actions from '../../action/Action';
+import '../../css/Search/SearchList.scss';
 
 const SearchList = ({searchObj, state, dispatch}) => {
     const [ownerObj, setOwnerObj] = useState(null);
@@ -40,25 +41,25 @@ const SearchList = ({searchObj, state, dispatch}) => {
     },[dispatch]);
 
     return (
-        <Card style={{ width: '100%' }}>
-            <Card.Body style={{ display: 'flex', flexDirection: 'row',  alignItems: 'center', justifyContent: 'space-between'}}>
-                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+        <Card className='div-card'>
+            <Card.Body className='div-body'>
+                <div className='div-box'>
                     <div>
-                        <Image src={searchObj.photoURL} style={{height: '4vh', width: '4vh'}} roundedCircle />            
+                        <Image src={searchObj.photoURL} className='img-profile' roundedCircle />            
                     </div>
-                    <div style={{display: 'flex', flexDirection: 'column', alignSelf: 'center', paddingLeft: '1vw'}}>
-                        <div>{searchObj.displayName}</div>
-                        <div style={{ fontSize: '0.9em' }}>{searchObj.tagId}</div>
+                    <div className='div-profile'>
+                        <span>{searchObj.displayName}</span>
+                        <span className='span-tag-id'>{searchObj.tagId}</span>
                     </div>
                     { !isFollowImg ? ( 
-                        <div style={{fontSize: '0.9em', marginLeft: '1.5vw', color: '#bdb49b'}}>
+                        <div className='div-info'>
                             { isOwner ? '사용자 본인입니다.' : '이미 팔로우 한 사용자입니다.' }
                         </div> 
                     ) : null }
                 </div>
                 <div>
                     { isFollowImg ? ( 
-                        <FontAwesomeIcon icon={faUserPlus} color={'#04AAFF'} size='lg' style={{marginRight: '1vw', cursor: 'pointer'}} onClick={addFriend.bind(this, searchObj)} />
+                        <FontAwesomeIcon icon={faUserPlus} size='lg' className='icon-add' onClick={addFriend.bind(this, searchObj)} />
                     ) : null }
                 </div>
             </Card.Body>

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import {  dbService } from 'Database';
 import SearchList from './SearchList';
+import '../../css/Search/Search.scss';
 
 const Search = () => {
     const [result, setResult] = useState([]);
@@ -27,19 +28,19 @@ const Search = () => {
     },[searchVal]);
 
     return (
-        <>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className='div-search'>
+            <div className='div-search-box'>
                 <Form>
-                    <Form.Group style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: '0.5em' }}>
+                    <Form.Group className='div-form'>
                         <Form.Control name="search" type="text" onChange={onChange} />
-                        <FontAwesomeIcon icon={faSearch} color={'#04AAFF'} size='1x' style={{cursor: 'pointer', marginLeft: '0.5vw'}} onClick={onSearch}/>
+                        <FontAwesomeIcon icon={faSearch} size='1x' className='icon' onClick={onSearch}/>
                     </Form.Group>
                 </Form>
             </div>
-            <div style={{ display: 'flex' }}>
+            <div className='div-search-list-box' >
                 {result.map((t) => <SearchList key={t.uid} searchObj={t} />)}
             </div>
-        </>
+        </div>
     );
 };
 

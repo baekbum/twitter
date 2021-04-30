@@ -1,0 +1,40 @@
+$icon-color : #04AAFF;
+
+.div-card {
+    width: 100%;
+
+    .div-body {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        .div-box {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            .img-profile {
+                height: 4vw;
+                width: 4vw;
+            }
+
+            .div-profile {
+                display: flex;
+                flex-direction: column;
+                align-self: center;
+                padding-left: 1vw;
+
+                .span-tag-id {
+                    font-size: 0.9em;
+                }
+            }
+        }
+
+        .icon {
+            margin-right: 1vw;
+            cursor: pointer;
+            color: $icon-color;
+        }
+    }
+}

@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { Form, Button, Image } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { v4 as uuid } from 'uuid';
+import '../../css/Tweet/Tweet.scss';
 
 const Tweets = ({state}) => {
     const [text, setText] = useState('');
@@ -59,23 +60,21 @@ const Tweets = ({state}) => {
     },[state.userObj, imageFile, text]);
 
     return (
-        <>
-            <Form>
-                <Form.Group controlId="exampleForm.ControlTextarea1">
-                    <Form.Control as="textarea" rows={10} style={{marginTop: '1vh'}} onChange={onTextChange} value={text} />
-                    { imageFile ? <Image src={imageFile} rounded style={{width: '100%', marginTop: '1vh', height: '39vh'}}/> : null }
-                </Form.Group>
-                <div style={{display: 'flex', flexDirection: 'column'}}>
-                    <div>
-                        <Form.File id="image-file" label={ imageName === '' ? 'Add image' : imageName } accept='image/*' custom onChange={onFileChange} />
-                    </div>
-                    <div style={{display: 'flex', justifyContent: 'flex-end', marginTop: '2vh'}}>
-                        <Button variant="primary" style={{ borderRadius: '1em', marginRight: '0.5vw'}} onClick={onClearImage}>Image clear</Button>
-                        <Button variant="primary" style={{ borderRadius: '1em'}} onClick={onTweet}>Tweet</Button>
-                    </div>                    
-                </div>                
-            </Form>
-        </>
+        <Form className='div-form'>
+            <Form.Group controlId="exampleForm.ControlTextarea1">
+                <Form.Control as="textarea" rows={10} className='input-textarea' onChange={onTextChange} value={text} />
+                { imageFile ? <Image src={imageFile} rounded className='img-attached' /> : null }
+            </Form.Group>
+            <div className='div-img-attachment'>
+                <div>
+                    <Form.File id="image-file" label={ imageName === '' ? 'Add image' : imageName } accept='image/*' custom onChange={onFileChange} />
+                </div>
+                <div className='div-btns'>
+                    <Button variant="primary" className='btn-clear' onClick={onClearImage}>Image clear</Button>
+                    <Button variant="primary" className='btn-tweet' onClick={onTweet}>Tweet</Button>
+                </div>                    
+            </div>                
+        </Form>
     );
 }
 

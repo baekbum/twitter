@@ -8,7 +8,7 @@ import * as actions from '../../action/Action';
 import * as types from '../../action/ActionTypes';
 import { authService } from "Database";
 import { connect } from "react-redux";
-import '../../css/Header/Header.css';
+import '../../css/Header/Header.scss';
 
 const Header = ({ dispatch }) => {
     const history = useHistory();
@@ -19,27 +19,29 @@ const Header = ({ dispatch }) => {
     },[]);
 
     return (
-        <nav className='header-nav'>
-            <div className='header-logo'>
-                <FontAwesomeIcon icon={faTwitter} color={'#04AAFF'} size='2x' />
-            </div>
-            <div className='header-icon-web'>
-                <FontAwesomeIcon icon={faHome} color={'#04AAFF'} size='lg' style={{marginRight: '1vw', cursor: 'pointer'}} onClick={dispatch.timelineShow.bind(this, 'WEB')} />
-                <FontAwesomeIcon icon={faPen} color={'#04AAFF'} size='lg' style={{marginRight: '1vw', cursor: 'pointer'}} onClick={dispatch.tweetShow.bind(this, 'WEB')} />
-                <FontAwesomeIcon icon={faSearch} color={'#04AAFF'} size='lg' style={{marginRight: '1vw', cursor: 'pointer'}} onClick={dispatch.searchShow.bind(this, 'WEB')} />
-                <FontAwesomeIcon icon={faUserFriends} color={'#04AAFF'} size='lg' style={{marginRight: '1vw', cursor: 'pointer'}} onClick={dispatch.followShow.bind(this, 'WEB')} />
-                <ProfileModal />
-                <FontAwesomeIcon icon={faSignOutAlt} color={'#04AAFF'} size='lg' style={{marginLeft: '1vw', cursor: 'pointer'}} onClick={onLogOutClick} />
-            </div>
-            <div className='header-icon-mobile'>
-                <FontAwesomeIcon icon={faHome} color={'#04AAFF'} size='lg' style={{marginRight: '1vw', cursor: 'pointer'}} onClick={dispatch.timelineShow.bind(this, 'MOBILE')} />
-                <FontAwesomeIcon icon={faPen} color={'#04AAFF'} size='lg' style={{marginRight: '1vw', cursor: 'pointer'}} onClick={dispatch.tweetShow.bind(this, 'MOBILE')} />
-                <FontAwesomeIcon icon={faSearch} color={'#04AAFF'} size='lg' style={{marginRight: '1vw', cursor: 'pointer'}} onClick={dispatch.searchShow.bind (this, 'MOBILE')} />
-                <FontAwesomeIcon icon={faUserFriends} color={'#04AAFF'} size='lg' style={{marginRight: '1vw', cursor: 'pointer'}} onClick={dispatch.followShow.bind(this, 'MOBILE')} />
-                <ProfileModal />
-                <FontAwesomeIcon icon={faSignOutAlt} color={'#04AAFF'} size='lg' style={{marginLeft: '1vw', cursor: 'pointer'}} onClick={onLogOutClick} />
-            </div>
-        </nav>
+        <div className='header-container'>
+            <nav className='div-nav'>
+                <div className='div-logo'>
+                    <FontAwesomeIcon icon={faTwitter} className='logo' size='2x' />
+                </div>
+                <div className='div-icon-web'>
+                    <FontAwesomeIcon icon={faHome} size='lg' className='icon' onClick={dispatch.timelineShow.bind(this, 'WEB')} />
+                    <FontAwesomeIcon icon={faPen}  size='lg' className='icon' onClick={dispatch.tweetShow.bind(this, 'WEB')} />
+                    <FontAwesomeIcon icon={faSearch} size='lg' className='icon' onClick={dispatch.searchShow.bind(this, 'WEB')} />
+                    <FontAwesomeIcon icon={faUserFriends} size='lg' className='icon' onClick={dispatch.followShow.bind(this, 'WEB')} />
+                    <ProfileModal />
+                    <FontAwesomeIcon icon={faSignOutAlt} size='lg' className='icon-last' onClick={onLogOutClick} />
+                </div>
+                <div className='div-icon-mobile'>
+                    <FontAwesomeIcon icon={faHome} size='lg' className='icon' onClick={dispatch.timelineShow.bind(this, 'MOBILE')} />
+                    <FontAwesomeIcon icon={faPen} size='lg' className='icon' onClick={dispatch.tweetShow.bind(this, 'MOBILE')} />
+                    <FontAwesomeIcon icon={faSearch} size='lg' className='icon' onClick={dispatch.searchShow.bind (this, 'MOBILE')} />
+                    <FontAwesomeIcon icon={faUserFriends} size='lg' className='icon' onClick={dispatch.followShow.bind(this, 'MOBILE')} />
+                    <ProfileModal />
+                    <FontAwesomeIcon icon={faSignOutAlt} size='lg' className='icon-last' onClick={onLogOutClick} />
+                </div>
+            </nav>
+        </div>        
     );
 }
 

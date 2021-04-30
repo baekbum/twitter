@@ -1,0 +1,47 @@
+$icon-color : #04AAFF;
+$span-color : #bdb49b;
+
+.div-card {
+    width: 100%;
+
+    .div-body {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        .div-box {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            .img-profile {
+                height: 4vh;
+                width: 4vh;
+            }
+
+            .div-profile {
+                display: flex;
+                flex-direction: column;
+                align-self: center;
+                padding-left: 1vw;
+
+                .span-tag-id {
+                    font-size: 0.9em;
+                }
+            }
+
+            .div-info {
+                font-size: 0.9em;
+                margin-left: 1.5vw;
+                color: $span-color;
+            }
+        }
+    }
+
+    .icon-add {
+        margin-right: 1vw;
+        cursor: pointer;
+        color: $icon-color;
+    }
+}

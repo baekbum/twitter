@@ -2,10 +2,11 @@ import React from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import FollowList from './FollowList';
+import '../../css/Follow/Follow.scss';
 
 const Follow = ({state}) => {
     return ( 
-        <Tabs defaultActiveKey="following" id="followTab" style={{backgroundColor: '#d1d3e6'}}>
+        <Tabs defaultActiveKey="following" id="followTab">
             <Tab eventKey="following" title="팔로잉">
                 {state.following.map((o) => <FollowList key={o.uid} type={'following'} obj={o} />)}
             </Tab>

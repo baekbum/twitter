@@ -3,7 +3,7 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import Auth from '../../routes/Auth';
 import Header from '../Header/Header';
 import Home from '../../routes/Home';
-import '../../css/Router/Router.css';
+import '../../css/Router/Router.scss';
 
 const AppRouter = ({ isLoggedIn }) => {
     return (
@@ -16,7 +16,7 @@ const AppRouter = ({ isLoggedIn }) => {
             <Switch>
                 <>
                     {isLoggedIn ? ( 
-                        <div className='main-layout'>
+                        <div className='main-container'>
                             <Route exact path='/'>
                                 <Home />
                             </Route>

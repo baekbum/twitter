@@ -5,6 +5,7 @@ import { Card, Image } from 'react-bootstrap';
 import { addFollow, deleteFollow, getFollowing, getFollower } from '../../dbFuncion/Follow'
 import { connect } from 'react-redux';
 import * as actions from '../../action/Action';
+import '../../css/Follow/FollowList.scss';
 
 const FollowList = ({type, obj, state, dispatch}) => {
     const unFollow = useCallback(async (obj) => {
@@ -30,22 +31,22 @@ const FollowList = ({type, obj, state, dispatch}) => {
     },[dispatch]);
    
     return (
-        <Card style={{ width: '100%' }}>
-            <Card.Body style={{ display: 'flex', flexDirection: 'row',  alignItems: 'center', justifyContent: 'space-between'}}>
-                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+        <Card className='div-card'>
+            <Card.Body className='div-body'>
+                <div className='div-box'>
                     <div>
-                        <Image src={obj.photoURL} style={{height: '4vw', width: '4vw'}} roundedCircle />            
+                        <Image src={obj.photoURL} className='img-profile' roundedCircle />            
                     </div>
-                    <div style={{display: 'flex', flexDirection: 'column', alignSelf: 'center', paddingLeft: '1vw'}}>
-                        <div>{obj.displayName}</div>
-                        <div style={{ fontSize: '0.9em' }}>{obj.tagId}</div>
+                    <div className='div-profile'>
+                        <span>{obj.displayName}</span>
+                        <span className='span-tag-id'>{obj.tagId}</span>
                     </div>
                 </div>
                 <div>
                     { type === 'following' ? ( 
-                        <FontAwesomeIcon icon={faUserTimes} color={'#04AAFF'} size='lg' style={{marginRight: '1vw', cursor: 'pointer'}} onClick={unFollow.bind(this, obj)} />
+                        <FontAwesomeIcon icon={faUserTimes} size='lg' className='icon' onClick={unFollow.bind(this, obj)} />
                     ) : (
-                        <FontAwesomeIcon icon={faUserPlus} color={'#04AAFF'} size='lg' style={{marginRight: '1vw', cursor: 'pointer'}} onClick={addFriend.bind(this, obj)} />   
+                        <FontAwesomeIcon icon={faUserPlus} size='lg' className='icon' onClick={addFriend.bind(this, obj)} />   
                     )}
                 </div>
             </Card.Body>

@@ -1,0 +1,25 @@
+$icon-color : #04AAFF;
+
+.div-search {
+    .div-search-box {
+        display: flex;
+        flex-direction: column;
+
+        .div-form {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 0.5em;
+    
+            .icon {
+                margin-left: 0.5vw;
+                cursor: pointer;
+                color: $icon-color;
+            }
+        }
+    }
+    
+    .div-search-list-box {
+        display: flex;
+    }
+}

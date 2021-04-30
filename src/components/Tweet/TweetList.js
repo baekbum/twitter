@@ -1,6 +1,7 @@
 import { dbService, storageService } from 'Database';
 import React, { useCallback } from 'react';
 import { Card, Button, Image } from 'react-bootstrap';
+import '../../css/Tweet/TweetList.scss';
 
 const TweetList = ({tweetObj, isOwner}) => {
     const onDelete = useCallback(async () => {
@@ -13,7 +14,7 @@ const TweetList = ({tweetObj, isOwner}) => {
     },[tweetObj]);
 
     return (
-        <Card style={{marginBottom: '1vh'}}>
+        <Card className='div-card'>
             <Card.Header>
                 {tweetObj.userName} ( {tweetObj.tagId} )
             </Card.Header>
@@ -21,11 +22,11 @@ const TweetList = ({tweetObj, isOwner}) => {
                 <Card.Text>
                     {tweetObj.content}
                 </Card.Text>
-                { tweetObj.fileUrl ? <Image src={tweetObj.fileUrl} rounded style={{width: '100%', marginTop: '1vh'}}/> : null }
+                { tweetObj.fileUrl ? <Image src={tweetObj.fileUrl} rounded className='img-content' /> : null }
             </Card.Body>
             { isOwner ? (
-                <Card.Footer className="text-muted" style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end'}}>
-                    <Button variant="outline-danger" size='sm' style={{ borderRadius: '1em'}} onClick={onDelete}>Delete</Button>
+                <Card.Footer className="text-muted div-footer">
+                    <Button variant="outline-danger" size='sm' className='btn-delete' onClick={onDelete}>Delete</Button>
                 </Card.Footer>
             ) : (
                 null
