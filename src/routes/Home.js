@@ -42,60 +42,54 @@ const Home = ({ state, dispatch }) => {
 
     return (
         <div className='home-container'>
-            { state.isTimeLine ? (
-                <div className='div-item-box'>
-                    <div className='div-header'>
-                        <div> 
-                            <FontAwesomeIcon icon={faHome} size='lg' className='icon' />
-                            <span className='title'>TimeLine</span>
-                        </div> 
-                        <FontAwesomeIcon icon={faTimes} size='1x' className='icon-close' onClick={dispatch.timelineHide.bind(this, 'WEB')}/>
-                    </div>
-                    <div className='div-content'>
-                        {tweets.map((t) => <TweetList key={t.id} tweetObj={t} isOwner={t.userId === state.userObj.uid ? true : false} />)}
-                    </div>
+            <div className={state.isTimeLine ? 'div-item-box-active' : 'div-item-box'}>
+                <div className='div-header'>
+                    <div> 
+                        <FontAwesomeIcon icon={faHome} size='lg' className='icon' />
+                        <span className='title'>TimeLine</span>
+                    </div> 
+                    <FontAwesomeIcon icon={faTimes} size='1x' className='icon-close' onClick={dispatch.timelineHide.bind(this, 'WEB')}/>
                 </div>
-            ) : null }            
-            { state.isTweet ? (
-                <div className='div-item-box'>
-                    <div className='div-header'>
-                        <div> 
-                            <FontAwesomeIcon icon={faTwitter} size='lg' className='icon' />
-                            <span className='title'>Tweet</span>
-                        </div>
-                        <FontAwesomeIcon icon={faTimes} size='1x' className='icon-close' onClick={dispatch.tweetHide.bind(this, 'WEB')}/>
+                <div className='div-content'>
+                    {tweets.map((t) => <TweetList key={t.id} tweetObj={t} isOwner={t.userId === state.userObj.uid ? true : false} />)}
+                </div>
+            </div>
+            <div className={state.isTweet ? 'div-item-box-active' : 'div-item-box'}>
+                <div className='div-header'>
+                    <div> 
+                        <FontAwesomeIcon icon={faTwitter} size='lg' className='icon' />
+                        <span className='title'>Tweet</span>
                     </div>
+                    <FontAwesomeIcon icon={faTimes} size='1x' className='icon-close' onClick={dispatch.tweetHide.bind(this, 'WEB')}/>
+                </div>
+                <div className='div-content-no-scroll'>
                     <Tweets />
                 </div>
-            ) : null }
-            { state.isSearch ? (
-                <div className='div-item-box'>
-                    <div className='div-header'>
-                        <div> 
-                            <FontAwesomeIcon icon={faSearch} size='lg' className='icon' />
-                            <span className='title'>Search</span>
-                        </div>
-                        <FontAwesomeIcon icon={faTimes} size='1x' className='icon-close' onClick={dispatch.searchHide.bind(this, 'WEB')}/>
+            </div>
+            <div className={state.isSearch ? 'div-item-box-active' : 'div-item-box'}>
+                <div className='div-header'>
+                    <div> 
+                        <FontAwesomeIcon icon={faSearch} size='lg' className='icon' />
+                        <span className='title'>Search</span>
                     </div>
-                    <div className='div-content-no-scroll'>
-                        <Search />
-                    </div>                    
+                    <FontAwesomeIcon icon={faTimes} size='1x' className='icon-close' onClick={dispatch.searchHide.bind(this, 'WEB')}/>
                 </div>
-            ) : null }
-            { state.isFollow ? (
-                <div className='div-item-box'>
-                    <div className='div-header'>
-                        <div> 
-                            <FontAwesomeIcon icon={faUserFriends} size='lg' className='icon' />
-                            <span className='title'>Follow info</span>
-                        </div>
-                        <FontAwesomeIcon icon={faTimes} size='1x' className='icon-close' onClick={dispatch.followHide.bind(this, 'WEB')}/>
+                <div className='div-content-no-scroll'>
+                    <Search />
+                </div>                    
+            </div>
+            <div className={state.isFollow ? 'div-item-box-active' : 'div-item-box'}>
+                <div className='div-header'>
+                    <div> 
+                        <FontAwesomeIcon icon={faUserFriends} size='lg' className='icon' />
+                        <span className='title'>Follow info</span>
                     </div>
-                    <div className='div-content-no-scroll'>
-                        <Follow /> 
-                    </div>
+                    <FontAwesomeIcon icon={faTimes} size='1x' className='icon-close' onClick={dispatch.followHide.bind(this, 'WEB')}/>
                 </div>
-            ) : null }
+                <div className='div-content-no-scroll'>
+                    <Follow /> 
+                </div>
+            </div>
         </div>
     )
 }

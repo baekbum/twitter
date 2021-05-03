@@ -8,8 +8,26 @@ $icon-color : #04AAFF;
     background-color: #e1e8ed;
 
     .div-item-box {
+        width: 0vw;
+        transition: all 0.3s;
+
+        .div-header {
+            display: none;
+        }
+
+        .div-content {
+            display: none;
+        }
+
+        .div-content-no-scroll {
+            display: none;        
+        }
+    }
+
+    .div-item-box-active {
         width: 25vw;
         padding: 0.5em;
+        transition: all 0.2s;
 
         .div-header {
             display: flex;
@@ -37,8 +55,8 @@ $icon-color : #04AAFF;
 
         .div-content {
             display: flex;
-            flex-direction: column;
             width: 100%;
+            flex-direction: column;
             height: 83vh;
             margin-top: 1vh;    
             overflow: scroll;
@@ -47,8 +65,8 @@ $icon-color : #04AAFF;
 
         .div-content-no-scroll {
             display: flex;
-            flex-direction: column;
             width: 100%;
+            flex-direction: column;
             height: 83vh;
             margin-top: 1vh;
         }
@@ -57,7 +75,7 @@ $icon-color : #04AAFF;
 
 @media screen and (max-width: 768px) {
     .home-container {
-        .div-item-box {
+        .div-item-box-active {
             width: 100vw;
             padding: 0.5em;
 
