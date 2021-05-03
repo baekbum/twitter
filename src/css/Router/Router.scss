@@ -12,11 +12,21 @@
     margin-bottom: 1vh;
 }
 
+.footer {
+    width: 100vw;
+    display: none;
+}
+
 @media screen and (max-width: 768px) {
     .header {
         height: 5vh;
     }
-    .main-layout {
-        height: 93vh;
+    .main-container {
+        height: 88vh;
+    }
+
+    .footer {
+        height: 5vh;
+        display: flex;
     }
 }

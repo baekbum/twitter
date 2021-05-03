@@ -10,7 +10,7 @@ import { authService } from "Database";
 import { connect } from "react-redux";
 import '../../css/Header/Header.scss';
 
-const Header = ({ dispatch }) => {
+const Header = ({ state, dispatch }) => {
     const history = useHistory();
     const onLogOutClick = useCallback(() => {
         authService.signOut();
@@ -25,24 +25,32 @@ const Header = ({ dispatch }) => {
                     <FontAwesomeIcon icon={faTwitter} className='logo' size='2x' />
                 </div>
                 <div className='div-icon-web'>
-                    <FontAwesomeIcon icon={faHome} size='lg' className='icon' onClick={dispatch.timelineShow.bind(this, 'WEB')} />
-                    <FontAwesomeIcon icon={faPen}  size='lg' className='icon' onClick={dispatch.tweetShow.bind(this, 'WEB')} />
-                    <FontAwesomeIcon icon={faSearch} size='lg' className='icon' onClick={dispatch.searchShow.bind(this, 'WEB')} />
-                    <FontAwesomeIcon icon={faUserFriends} size='lg' className='icon' onClick={dispatch.followShow.bind(this, 'WEB')} />
+                    <FontAwesomeIcon icon={faHome} size='lg' className={state.isTimeLine ? 'icon-active' : 'icon'} onClick={dispatch.timelineShow.bind(this, 'WEB')} />
+                    <FontAwesomeIcon icon={faPen}  size='lg' className={state.isTweet ? 'icon-active' : 'icon'} onClick={dispatch.tweetShow.bind(this, 'WEB')} />
+                    <FontAwesomeIcon icon={faSearch} size='lg' className={state.isSearch ? 'icon-active' : 'icon'} onClick={dispatch.searchShow.bind(this, 'WEB')} />
+                    <FontAwesomeIcon icon={faUserFriends} size='lg' className={state.isFollow ? 'icon-active' : 'icon'} onClick={dispatch.followShow.bind(this, 'WEB')} />
                     <ProfileModal />
                     <FontAwesomeIcon icon={faSignOutAlt} size='lg' className='icon-last' onClick={onLogOutClick} />
                 </div>
                 <div className='div-icon-mobile'>
-                    <FontAwesomeIcon icon={faHome} size='lg' className='icon' onClick={dispatch.timelineShow.bind(this, 'MOBILE')} />
-                    <FontAwesomeIcon icon={faPen} size='lg' className='icon' onClick={dispatch.tweetShow.bind(this, 'MOBILE')} />
-                    <FontAwesomeIcon icon={faSearch} size='lg' className='icon' onClick={dispatch.searchShow.bind (this, 'MOBILE')} />
-                    <FontAwesomeIcon icon={faUserFriends} size='lg' className='icon' onClick={dispatch.followShow.bind(this, 'MOBILE')} />
                     <ProfileModal />
+                    <FontAwesomeIcon icon={faTwitter} className='logo' size='2x' />
                     <FontAwesomeIcon icon={faSignOutAlt} size='lg' className='icon-last' onClick={onLogOutClick} />
                 </div>
             </nav>
         </div>        
     );
+}
+
+function mapStateToProps(state) {
+    return { 
+        state : {
+            isTimeLine : state.isShowReducer.isTimeLine,
+            isTweet : state.isShowReducer.isTweet,
+            isSearch : state.isShowReducer.isSearch,
+            isFollow : state.isShowReducer.isFollow
+        }
+    };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -56,4 +64,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(null, mapDispatchToProps) (Header);
+export default connect(mapStateToProps, mapDispatchToProps) (Header);

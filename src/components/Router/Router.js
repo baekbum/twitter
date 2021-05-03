@@ -4,6 +4,7 @@ import Auth from '../../routes/Auth';
 import Header from '../Header/Header';
 import Home from '../../routes/Home';
 import '../../css/Router/Router.scss';
+import Footer from 'components/Footer/Footer';
 
 const AppRouter = ({ isLoggedIn }) => {
     return (
@@ -28,6 +29,11 @@ const AppRouter = ({ isLoggedIn }) => {
                     }
                 </>
             </Switch>
+            {isLoggedIn ? (
+                <div className='footer'>
+                    <Footer />
+                </div>
+             )  : null}
         </Router>
     )
 };
