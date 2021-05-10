@@ -1,5 +1,5 @@
 import { dbService } from 'Database';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faHome, faSearch, faTimes, faUserFriends } from "@fortawesome/free-solid-svg-icons";
@@ -13,7 +13,7 @@ import TweetList from '../components/Tweet/TweetList';
 import Search from '../components/Search/Search';
 import Follow from '../components/Follow/Follow';
 
-const Home = ({ state, dispatch }) => {
+const Home = memo( ({ state, dispatch }) => {
     const [isFrist, setIsFrist] = useState(true);
     const [tweets, setTweets] = useState([]);
 
@@ -92,6 +92,16 @@ const Home = ({ state, dispatch }) => {
             </div>
         </div>
     )
+}, areEqual);
+
+function areEqual(prevProps, nextProps) {
+    return (
+        prevProps.state.userObj === nextProps.state.userObj
+        && prevProps.state.isTimeLine === nextProps.state.isTimeLine
+        && prevProps.state.isTweet === nextProps.state.isTweet
+        && prevProps.state.isSearch === nextProps.state.isSearch
+        && prevProps.state.isFollow === nextProps.state.isFollow
+    );
 }
 
 function mapStateToProps(state) {

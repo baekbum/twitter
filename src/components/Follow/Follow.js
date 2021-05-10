@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import FollowList from './FollowList';
 import '../../css/Follow/Follow.scss';
 
-const Follow = ({state}) => {
+const Follow = memo( ({state}) => {
     return ( 
         <Tabs defaultActiveKey="following" id="followTab">
             <Tab eventKey="following" title="팔로잉">
@@ -15,7 +15,14 @@ const Follow = ({state}) => {
             </Tab>
         </Tabs>
     );
-};
+}, areEqual);
+
+function areEqual(prevProps, nextProps) {
+    return (
+        prevProps.state.following === nextProps.state.following
+        && prevProps.state.follower === nextProps.state.follower
+    );
+}
 
 function mapStateToProps(state) {
     return {

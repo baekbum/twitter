@@ -1,11 +1,11 @@
 import { dbService, storageService } from 'Database';
-import React, { useCallback, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { Form, Button, Image } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import '../../css/Tweet/Tweet.scss';
 
-const Tweets = ({state}) => {
+const Tweets = memo( ({state}) => {
     const [text, setText] = useState('');
     const [imageFile, setImageFile] = useState('');
     const [imageName, setImageName] = useState('');
@@ -75,6 +75,12 @@ const Tweets = ({state}) => {
                 </div>                    
             </div>                
         </Form>
+    );
+}, areEqual);
+
+function areEqual(prevProps, nextProps) {
+    return (
+        prevProps.state.userObj === nextProps.state.userObj
     );
 }
 

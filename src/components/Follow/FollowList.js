@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserTimes, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { Card, Image } from 'react-bootstrap';
@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../action/Action';
 import '../../css/Follow/FollowList.scss';
 
-const FollowList = ({type, obj, state, dispatch}) => {
+const FollowList = memo( ({type, obj, state, dispatch}) => {
     const unFollow = useCallback(async (obj) => {
         const check = window.confirm('정말 언팔로우 하시겠습니까?');
         
@@ -52,7 +52,15 @@ const FollowList = ({type, obj, state, dispatch}) => {
             </Card.Body>
         </Card>
     )
-};
+}, areEqual);
+
+function areEqual(prevProps, nextProps) {
+    return (
+        prevProps.state.userObj === nextProps.state.userObj
+        && prevProps.type === nextProps.type
+        && prevProps.obj === nextProps.obj
+    );
+}
 
 function mapStateToProps(state) {
     return {

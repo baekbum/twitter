@@ -1,10 +1,10 @@
 import { authService } from 'Database';
-import React, { useCallback, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { setUserDB } from '../../dbFuncion/UserInfo';
 import '../../css/Auth/AuthModal.scss';
 
-const AuthModal = () => {
+const AuthModal = memo( () => {
     const [show, setShow] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -71,6 +71,6 @@ const AuthModal = () => {
         </Modal>
       </>
     );
-}
+});
 
 export default AuthModal;

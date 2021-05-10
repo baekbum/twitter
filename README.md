@@ -27,3 +27,4 @@
 - 0430 : 기존 css를 scss로 변경하여 적용
 - 0503 : 현재 활성화 된 목록은 header 아이콘 색 다르게 변경, 화면 사이즈 작아질 때 footer가 보여지도록 변경, 각 메뉴 show, hide시 transition 적용
 ![0503](./readmeImg/0503.png)
+- 0510 : 불필요한 re-rendering을 막기 위해 컴포넌트에 React.memo 적용

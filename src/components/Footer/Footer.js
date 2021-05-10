@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faPen, faSearch, faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import * as actions from '../../action/Action';
@@ -6,7 +6,7 @@ import * as types from '../../action/ActionTypes';
 import { connect } from "react-redux";
 import '../../css/Footer/Footer.scss';
 
-const Footer = ({ state, dispatch }) => {
+const Footer = memo( ({ state, dispatch }) => {
     return (
         <div className='footer-container'>
             <nav className='div-nav'>
@@ -18,6 +18,15 @@ const Footer = ({ state, dispatch }) => {
                 </div>
             </nav>
         </div>        
+    );
+}, areEqual);
+
+function areEqual(prevProps, nextProps) {
+    return (
+        prevProps.state.isTimeLine === nextProps.state.isTimeLine
+        && prevProps.state.isTweet === nextProps.state.isTweet
+        && prevProps.state.isSearch === nextProps.state.isSearch
+        && prevProps.state.isFollow === nextProps.state.isFollow
     );
 }
 

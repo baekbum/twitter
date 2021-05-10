@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -6,7 +6,7 @@ import {  dbService } from 'Database';
 import SearchList from './SearchList';
 import '../../css/Search/Search.scss';
 
-const Search = () => {
+const Search = memo( () => {
     const [result, setResult] = useState([]);
     const [searchVal, setSearchVal] = useState('');
 
@@ -42,6 +42,6 @@ const Search = () => {
             </div>
         </div>
     );
-};
+});
 
 export default Search;

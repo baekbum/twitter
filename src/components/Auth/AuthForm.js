@@ -1,5 +1,5 @@
 import {authService, firebaseInstance} from '../../Database';
-import React, { useCallback, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import AuthModal from './AuthModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
@@ -7,7 +7,7 @@ import { Form, Button } from 'react-bootstrap';
 import '../../css/Auth/AuthForm.scss';
 import { setUserDB } from '../../dbFuncion/UserInfo';
 
-const AuthForm = () => {
+const AuthForm = memo( () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errMessage, setErrMessage] = useState('');
@@ -78,6 +78,6 @@ const AuthForm = () => {
             <AuthModal />
         </>
     )
-};
+});
 
 export default AuthForm;

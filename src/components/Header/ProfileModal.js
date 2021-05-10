@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { Button, Form, Image, Modal } from 'react-bootstrap';
 import { v4 as uuid } from 'uuid';
 import { dbService, storageService } from 'Database';
@@ -7,7 +7,7 @@ import { refreshUserObj } from '../../dbFuncion/UserInfo';
 import defaultImage from '../../image/default.png';
 import '../../css/Header/ProfileModal.scss';
 
-const ProfileModal = ({state, dispatch}) => {
+const ProfileModal = memo( ({state, dispatch}) => {
     const [show, setShow] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const [tagId, setTagId] = useState(state.userObj.tagId);
@@ -147,6 +147,12 @@ const ProfileModal = ({state, dispatch}) => {
                 </Modal.Body>
             </Modal>
         </>
+    );
+}, areEqual);
+
+function areEqual(prevProps, nextProps) {
+    return (
+        prevProps.state.userObj === nextProps.state.userObj
     );
 }
 

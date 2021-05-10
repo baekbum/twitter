@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { memo, useCallback } from "react";
 import { useHistory } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
@@ -10,7 +10,7 @@ import { authService } from "Database";
 import { connect } from "react-redux";
 import '../../css/Header/Header.scss';
 
-const Header = ({ state, dispatch }) => {
+const Header = memo( ({ state, dispatch }) => {
     const history = useHistory();
     const onLogOutClick = useCallback(() => {
         authService.signOut();
@@ -39,6 +39,15 @@ const Header = ({ state, dispatch }) => {
                 </div>
             </nav>
         </div>        
+    );
+}, areEqual);
+
+function areEqual(prevProps, nextProps) {
+    return (
+        prevProps.state.isTimeLine === nextProps.state.isTimeLine
+        && prevProps.state.isTweet === nextProps.state.isTweet
+        && prevProps.state.isSearch === nextProps.state.isSearch
+        && prevProps.state.isFollow === nextProps.state.isFollow
     );
 }
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { Card, Image } from 'react-bootstrap';
@@ -8,7 +8,7 @@ import { getFollowing, getFollower } from '../../dbFuncion/Follow';
 import * as actions from '../../action/Action';
 import '../../css/Search/SearchList.scss';
 
-const SearchList = ({searchObj, state, dispatch}) => {
+const SearchList = memo( ({searchObj, state, dispatch}) => {
     const [ownerObj, setOwnerObj] = useState(null);
     const [isOwner, setIsOwner] = useState(false);
     const [isFollowImg, setIsFollowImg] = useState(false);
@@ -65,7 +65,14 @@ const SearchList = ({searchObj, state, dispatch}) => {
             </Card.Body>
         </Card>
     )
-};
+}, areEqual);
+
+function areEqual(prevProps, nextProps) {
+    return (
+        prevProps.state.userObj === nextProps.state.userObj
+        && prevProps.searchObj === nextProps.searchObj
+    );
+}
 
 function mapStateToProps(state) {
     return {

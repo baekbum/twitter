@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { getUserDB, setUserObject } from '../dbFuncion/UserInfo';
 import '../css/App.scss';
 
-function App({saveUser, initUser}) {
+const App = ({saveUser, initUser}) => {
   const [init, setInit] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   

@@ -1,9 +1,9 @@
 import { dbService, storageService } from 'Database';
-import React, { useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import { Card, Button, Image } from 'react-bootstrap';
 import '../../css/Tweet/TweetList.scss';
 
-const TweetList = ({tweetObj, isOwner}) => {
+const TweetList = memo( ({tweetObj, isOwner}) => {
     const onDelete = useCallback(async () => {
         const check = window.confirm('정말 삭제하시겠습니까?');
         
@@ -33,6 +33,13 @@ const TweetList = ({tweetObj, isOwner}) => {
             )}
         </Card>
     )
-};
+}, areEqual);
+
+function areEqual(prevProps, nextProps) {
+    return (
+        prevProps.tweetObj === nextProps.tweetObj
+        && prevProps.isOwner === nextProps.isOwner
+    );
+}
 
 export default TweetList;
