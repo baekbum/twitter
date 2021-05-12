@@ -28,3 +28,5 @@
 - 0503 : 현재 활성화 된 목록은 header 아이콘 색 다르게 변경, 화면 사이즈 작아질 때 footer가 보여지도록 변경, 각 메뉴 show, hide시 transition 적용
 ![0503](./readmeImg/0503.png)
 - 0510 : 불필요한 re-rendering을 막기 위해 컴포넌트에 React.memo 적용
+- 0512 : ie11에서도 동작 가능하게 하기 위해 polyfill 적용
+- ???? : jest 설치 후 테스트 코드 작성 후 테스트 가능하도록 적용 (예정)
